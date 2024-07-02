@@ -1,0 +1,14 @@
+troubleshooting:
+  label: troubleshooting
+  permalink: /troubleshooting
+  description: 개발하면서 마주한 문제상황을 해결하고, 그 과정을 공유합니다.
+
+backend:
+  label: backend
+  permalink: /backend
+  description: 백엔드 개발 상황을 공유합니다.
+
+frontend:
+  label: frontend
+  permalink: /frontend
+  description: 프론트엔드 개발 상황을 공유합니다.
