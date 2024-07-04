@@ -1,0 +1,9 @@
+{
+  "label": "🔥 백엔드",
+  "position": 1,
+  "link": {
+    "slug": "/category/backend",
+    "type": "generated-index",
+    "description": "백엔드 이야기"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "label": "📚 회의록",
+  "position": 2,
+  "link": {
+    "slug": "/category/meeting-notes",
+    "type": "generated-index",
+    "description": "회의에서 나온 이야기를 기록합니다."
+  }
+}

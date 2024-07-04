@@ -1,0 +1,9 @@
+{
+  "label": "🚀 프론트엔드",
+  "position": 0,
+  "link": {
+    "slug": "/category/frontend",
+    "type": "generated-index",
+    "description": "프론트엔드 이야기"
+  }
+}
