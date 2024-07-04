@@ -141,6 +141,13 @@ const config = {
       tableOfContents: {
         maxHeadingLevel: 4,
       },
+      zoom: {
+        selector: '.markdown img',
+        background: {
+          light: 'rgb(255, 255, 255)',
+          dark: 'rgb(50, 50, 50)',
+        },
+      }
     }),
 
   scripts: [
@@ -149,6 +156,9 @@ const config = {
       crossorigin: "anonymous",
       defer: true,
     },
+  ],
+  plugins: [
+    'docusaurus-plugin-image-zoom',
   ],
 };
 
