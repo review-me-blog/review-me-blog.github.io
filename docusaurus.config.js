@@ -42,6 +42,7 @@ const config = {
       ({
         docs: {
           sidebarPath: './sidebars.js',
+          showLastUpdateTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           // editUrl:
@@ -49,6 +50,7 @@ const config = {
         },
         blog: {
           showReadingTime: true,
+          showLastUpdateTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           // editUrl:
@@ -140,6 +142,14 @@ const config = {
         maxHeadingLevel: 4,
       },
     }),
+
+  scripts: [
+    {
+      src: "https://unpkg.com/twemoji@latest/dist/twemoji.min.js",
+      crossorigin: "anonymous",
+      defer: true,
+    },
+  ],
 };
 
 export default config;
