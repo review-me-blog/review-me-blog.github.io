@@ -7,7 +7,7 @@ const ApplyTwemoji = () => {
 
   useEffect(() => {
     const observer = new MutationObserver((mutationsList, observer) => {
-      twemoji.parse(document.body);
+      twemoji.parse(document.body, {base: "https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/"});
     });
     observer.observe(document.body, { childList: true, subtree: true });
     return () => observer.disconnect();
