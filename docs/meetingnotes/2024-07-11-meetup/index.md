@@ -1,5 +1,5 @@
 ---
-title: 7월 11일 회의
+title: 😺 7월 11일 회의
 description: 1차 데모데이 준비
 tags: [meeting-notes]
 ---
