@@ -74,11 +74,10 @@ Spring Boot 3.x를 사용하려면 최소 Java 17 이상 버전 필요
 
 스프링 부트에 기본적으로 포함되어있는 Logback로 결정
 
-### ocker
+### Docker
 
 ### RestClient
 
 ### Github Actions + (Slack API)
 
 젠킨스도 고려했지만 러닝 커브가 높고, 젠킨스에서 제공하는 커스텀 수준까지 필요하지 않다는 점에서 Github Actions로 결정
- 마이크 테스트!
