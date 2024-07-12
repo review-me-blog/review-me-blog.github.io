@@ -1,5 +1,4 @@
 ---
-slug: tech-stack
 title: 백엔드 기술 스택
 tags: [backend]
 ---
