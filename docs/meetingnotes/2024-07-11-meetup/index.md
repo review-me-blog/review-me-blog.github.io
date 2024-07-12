@@ -93,7 +93,7 @@ Github의 Issue 기능 적극 활용하기!
 
 - 파트별로 나누어진 issue인 경우:
   `[be/fe]/[feature/fix/refactor 등]/[{이슈 번호}-{이슈 설명}`
-- 공통 issue인 경우: ex) docs: {이슈 설명}
+- 공통 issue인 경우: ex) docs: \{이슈 설명\}
 - checkout locally
 
 # 기술 블로그 활성화
