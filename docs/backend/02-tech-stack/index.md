@@ -1,7 +1,6 @@
 ---
 slug: tech-stack
 title: 백엔드 기술 스택
-sidebar_position: 1
 tags: [backend]
 ---
 
