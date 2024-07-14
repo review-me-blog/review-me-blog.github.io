@@ -12,6 +12,10 @@ concurrency: preview-${{ github.ref }}
 
 jobs:
   deploy-preview:
+    permissions:
+      contents: write
+      pages: write
+      
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout
