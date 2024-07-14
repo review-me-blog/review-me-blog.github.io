@@ -4,9 +4,12 @@ on:
   pull_request:
     branches:
       - main
-      
+
 jobs:
   test-deploy:
+    permissions:
+      contents: write
+      pages: write
     name: Test deployment
     runs-on: ubuntu-latest
     steps:
