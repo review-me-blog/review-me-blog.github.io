@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://your-docusaurus-site.example.com/blog</id>
+    <title>리뷰미 팀블로그 Blog</title>
+    <updated>2024-07-02T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://your-docusaurus-site.example.com/blog"/>
+    <subtitle>리뷰미 팀블로그 Blog</subtitle>
+    <icon>https://your-docusaurus-site.example.com/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[안녕하세요, 리뷰미!]]></title>
+        <id>https://your-docusaurus-site.example.com/blog/hello-world</id>
+        <link href="https://your-docusaurus-site.example.com/blog/hello-world"/>
+        <updated>2024-07-02T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[우아한테크코스 6기 레벨 3이 시작되었습니다 🥹]]></summary>
+        <content type="html"><![CDATA[<p>우아한테크코스 6기 레벨 3이 시작되었습니다 🥹</p>]]></content>
+        <author>
+            <name>손해영 (바다)</name>
+            <uri>https://github.com/badahertz52</uri>
+        </author>
+        <author>
+            <name>현수연 (쑤쑤)</name>
+            <uri>https://github.com/soosoo22</uri>
+        </author>
+        <author>
+            <name>이예진 (올리)</name>
+            <uri>https://github.com/ImxYJL</uri>
+        </author>
+        <author>
+            <name>박철민 (에프이)</name>
+            <uri>https://github.com/chysis</uri>
+        </author>
+        <author>
+            <name>이동훈 (아루)</name>
+            <uri>https://github.com/donghoony</uri>
+        </author>
+        <author>
+            <name>이현지 (커비)</name>
+            <uri>https://github.com/skylar1220</uri>
+        </author>
+        <author>
+            <name>김규태 (테드)</name>
+            <uri>https://github.com/kimprodp</uri>
+        </author>
+        <author>
+            <name>나영서 (산초)</name>
+            <uri>https://github.com/nayonsoso</uri>
+        </author>
+        <category label="review-me" term="review-me"/>
+        <category label="blog" term="blog"/>
+        <category label="troubleshooting" term="troubleshooting"/>
+    </entry>
+</feed>
