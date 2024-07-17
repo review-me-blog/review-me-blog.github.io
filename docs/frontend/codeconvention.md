@@ -70,6 +70,12 @@ sidebar_position: 2
   };
   ```
 
+- API 호출 함수명은 *Api로 끝나게 한다.
+  ```jsx
+  ex). deleteReviewApi, getReviewApi
+  // 추후에 deleteReview 라는 기능 메서드명이 생길 수 있기 때문에 api 호출 이름과 구분 짓기 위함
+  ```
+
 ## 2. 파일 및 폴더명
 
 ### 파일명
@@ -218,3 +224,12 @@ const Component = ({a, b}: ComponentProps) => {
 ```
 
 - props에서 `children`을 사용하는 경우에 타입을 `PropsWithChildren<>`로 지정한다.
+
+## 10. CSS
+
+### rem 단위 사용
+픽셀(px)은 고정된 크기를 제공하여 일관된 디자인을 유지하는 데 유리하지만, 유연성과 접근성 면에서는 제한적이다. 반면, rem은 사용자가 브라우저에서 폰트 크기를 변경하면 레이아웃도 함께 조정되어 유연성과 접근성을 제공한다.
+ ```css
+font-size: 10rem;
+ ```
+
