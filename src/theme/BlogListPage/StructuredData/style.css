@@ -1,0 +1,20 @@
+:root {
+    --card-background-light: #fff;
+    --card-background-dark: #333;
+    --card-shadow-light: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --card-shadow-dark: 0 4px 8px rgba(0, 0, 0, 0.3);
+    --card-text-light: #000;
+    --card-text-dark: #fff;
+}
+
+[data-theme='dark'] {
+    --card-background: var(--card-background-dark);
+    --card-shadow: var(--card-shadow-dark);
+    --card-text: var(--card-text-dark);
+}
+
+[data-theme='light'] {
+    --card-background: var(--card-background-light);
+    --card-shadow: var(--card-shadow-light);
+    --card-text: var(--card-text-light);
+}
