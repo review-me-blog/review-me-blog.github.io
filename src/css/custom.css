@@ -43,3 +43,19 @@ img.emoji {
   margin: 0 .05em 0 .1em;
   vertical-align: -0.1em;
 }
+
+code {
+  font-family: inconsolata, consolas;
+  font-size: 0.9em;
+  background-color: #FAFAFA;
+  padding: 0.1rem 0.2rem;
+  border-radius: 4px;
+  margin: 0 1px;
+  color: black;
+  border: none;
+}
+
+.token-line {
+  font-family: inconsolata, consolas;
+  font-size: 0.95em;
+}
