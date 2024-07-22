@@ -1,5 +1,5 @@
 ---
-title: 🥳 7월 15일 회의
+title: 🥳 7월 16일 회의
 description: 해커톤 회고
 tags: [meeting-notes]
 ---
