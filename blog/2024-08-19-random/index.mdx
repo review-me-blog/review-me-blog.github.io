@@ -1,0 +1,114 @@
+---
+slug: random
+title: 랜덤은 정말 랜덤일까요?
+authors: [donghoony]
+tags: [blog]
+---
+
+import rfc from "./img/rfc.webp";
+import random from "./img/random.webp";
+import securerandom from "./img/securerandom.webp";
+import threadlocal from "./img/threadlocal.webp";
+
+리뷰미 서비스에서는 리뷰 URL을 생성할 때 랜덤하게 생성합니다. 이때 `Random` 라이브러리를 활용했어요.
+찾아보니 `ThreadLocalRandom`, `SecureRandom`과 같은 다양한 랜덤 구현체가 존재했습니다.
+오늘은 이들의 특징을 알아보고, 팀에서는 어떤 방식의 랜덤 라이브러리를 활용했는지 소개해보고자 합니다.
+
+## 🎲 어떻게 랜덤을 구현했을까?
+컴퓨터는 어떻게 랜덤하게 값을 만들 수 있을까요?
+우리가 원하는 대로만 움직이는 컴퓨터에게 무슨 수로 **무작위**한 값을 달라고 할까요?
+정말 컴퓨터가 만들어내는 값은 무작위한 난수일까요?
+
+사실 난수를 달라고 하더라도, 내부의 알고리즘을 따라 정해진 값을 건네게 되어 있습니다.
+이러한 방법으로 생성된 난수를 유사난수, `Random`와 같은 라이브러리를 유사난수 생성기(Pseudo-random number generator: PRNG)라고 해요.
+우리가 보기에는 앞뒤 상관없이 무작위의 수를 건네는 것처럼 보이지만, 한날 한시에 난수를 꺼내오는 경우, **완전히 같은 값**을 가져올 수 있습니다.
+
+Java에서 난수를 생성하는 방법은 간단합니다. `Random.next()`라는 메서드에서 이를 엿볼 수 있어요.
+```java
+protected int next(int bits) {
+    long oldseed, nextseed;
+    AtomicLong seed = this.seed;
+    do {
+        oldseed = seed.get();
+        nextseed = (oldseed * multiplier + addend) & mask;
+    } while (!seed.compareAndSet(oldseed, nextseed));
+    return (int)(nextseed >>> (48 - bits));
+}
+```
+
+## 🔐 암호학적으로 안전하게 난수 생성하기
+
+Java를 제외하고도 대부분의 난수 생성기는 `seed`라고 하는 값을 가집니다.
+`seed`로부터 난수를 생성하기 때문에, `seed`가 같은 경우에는 항상 같은 난수를 생성해요. 그리고 이 `seed`는 `Random` 객체가 만들어질 때 결정됩니다.
+Java에서는 시각에 따라 `seed`가 결정돼요. 서로 다른 하드웨어에서 정말 같은 시각에 객체가 생성된다면 항상 같은 난수를 생성하겠죠?
+
+```java
+public Random() {
+    this(seedUniquifier() ^ System.nanoTime());
+}
+```
+
+이를 해결하기 위해서는 `SecureRandom`을 활용할 수 있습니다.
+앞서 난수 생성기를 **PRNG**라고 불렀다면, 암호학적으로 안전한(Cryptographically safe) 난수 생성기는 **CSPRNG**라고 부릅니다.
+[RFC 4086](https://datatracker.ietf.org/doc/html/rfc4086)을 만족하도록 기계를 설계해야 하며, 다양한 방법으로 `seed`를 초기화하는 방법을 소개하기도 합니다.
+
+<p style={{textAlign: "center"}}><img src={rfc}/></p>
+
+## 🫂 동시성 문제를 해결하며 난수 생성하기
+
+대부분의 경우 `Random` 객체를 한 번 만들어서 여러 곳에서 사용합니다. 동시에 여러 스레드에서 난수를 생성하려고 한다면 어떻게 될까요?
+`nextInt()`는 `next(32)`를 부르고, 위의 메서드에서 보았듯이 `AtomicLong`을 사용해 `seed`를 변형해가며 난수를 생성합니다.
+동시에 여러 곳에서 요청하더라도 각각 다른 난수를 생성하기 위해서죠. `seed`가 올바르게 업데이트되지 않는다면, `while`을 계속해서 반복하게 됩니다.
+요청이 많아질 때 성능이 얼마나 저하되는지 직접 확인해볼까요?
+
+```java
+private static Random random = new Random();
+
+@Test
+void testRandom() throws InterruptedException {
+    int NUM_OPERATIONS = 100_000_000;
+    int[] threadCounts = {1, 2, 4, 8, 16};
+
+    for (int threadCount : threadCounts) {
+        ExecutorService executor = Executors.newFixedThreadPool(threadCount);
+        long startTime = System.currentTimeMillis();
+        for (int i = 0; i < threadCount; i++) {
+            executor.submit(() -> {
+                for (int j = 0; j < NUM_OPERATIONS / threadCount; j++) {
+                    random.nextInt();
+                }
+            });
+        }
+        executor.shutdown();
+        executor.awaitTermination(1, TimeUnit.MINUTES);
+        long endTime = System.currentTimeMillis();
+        System.out.println("Threads: " + threadCount + ", Time: " + (endTime - startTime) + " ms");
+    }
+}
+```
+
+1억 번의 랜덤 연산을 여러 스레드에서 진행하게끔 했을 때의 결과입니다.
+예상했듯이 스레드가 많아질수록 `AtomicLong`을 연산하는 과정에서 많은 CPU 사이클 낭비가 발생합니다.
+
+<p style={{textAlign: "center"}}><img src={random}/></p>
+
+`Random` 문서에서도 동시성과 관련된 상황에서는 `ThreadLocal`을 사용하라고 권고하고 있어요. `random.nextInt()`를 `ThreadLocalRandom.current().nextInt()`로 수정하면 아래와 같은 성능 향상을 확인할 수 있습니다.
+
+<p style={{textAlign: "center"}}><img src={threadlocal}/></p>
+
+
+## 🔍 리뷰미에서 적용한 난수 생성기
+리뷰미에서는 다른 사람에게 리뷰를 요청하기 위해 링크를 생성할 때 난수를 활용합니다.
+독립적인 URL을 생성해야 하고, 그에 따른 접근 코드도 발급해야 했어요. 다른 사람에게 보내는 URL의 경우에는 노출될 확률이 높고, 크게 보안적으로 위험한 사안이 아닙니다.
+예측에 성공했다고 하더라도 리뷰를 작성하는 행위밖에 할 수 없어요. 자세한 경험을 작성해야 하는 리뷰의 신뢰성이 떨어지고, 이는 읽는이가 빠르게 눈치챌 수 있겠습니다.
+
+다만 리뷰를 확인할 때 사용하는 코드라면 어떨까요? 코드를 예측할 수 있다면 다른 사람의 리뷰를 확인할 수 있게 됩니다. 그 사람을 바라보는 팀원의 이야기는 보안에 신경쓸 필요가 있습니다.
+
+하지만 유저 테스트 결과, 링크와 확인 코드 두 가지를 모두 기억하는 것이 사용자에게 부담으로 다가온다는 피드백이 있었어요.
+URL과 확인 코드 두 개를 생성하는 일을 하나의 부담으로 합치는 일이 필요했습니다. 사용자가 직접 비밀번호를 설정하도록 함으로써 확인 코드는 역사 뒤편으로 사라지게 되었어요.
+
+스프링 웹 서비스 특성 상 요청 당 스레드가 할당되는데요, 하나의 `Random` 객체에 접근했을 때의 속도 저하를 확인했기 때문에 이를 사용할 이유는 없었습니다.
+나아가, `SecureRandom`을 사용할 수 있었지만 강력한 보안 대신 속도를 내주어야 했어요.
+<p style={{textAlign: "center"}}><img src={securerandom}/></p>
+
+따라서 저희 팀에서는 `ThreadLocalRandom`을 활용하기로 했습니다. 영어 대소문자, 숫자로 이루어진 8자리 값이라 218,340,105,584,896가지의 경우의 수가 존재합니다 😄
