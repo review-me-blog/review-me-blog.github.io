@@ -24,7 +24,7 @@ import threadlocal from "./img/threadlocal.webp";
 우리가 보기에는 앞뒤 상관없이 무작위의 수를 건네는 것처럼 보이지만, 한날 한시에 난수를 꺼내오는 경우, **완전히 같은 값**을 가져올 수 있습니다.
 
 Java에서 난수를 생성하는 방법은 간단합니다. `Random.next()`라는 메서드에서 이를 엿볼 수 있어요.
-```java
+```java showLineNumbers
 protected int next(int bits) {
     long oldseed, nextseed;
     AtomicLong seed = this.seed;
@@ -42,7 +42,7 @@ Java를 제외하고도 대부분의 난수 생성기는 `seed`라고 하는 값
 `seed`로부터 난수를 생성하기 때문에, `seed`가 같은 경우에는 항상 같은 난수를 생성해요. 그리고 이 `seed`는 `Random` 객체가 만들어질 때 결정됩니다.
 Java에서는 시각에 따라 `seed`가 결정돼요. 서로 다른 하드웨어에서 정말 같은 시각에 객체가 생성된다면 항상 같은 난수를 생성하겠죠?
 
-```java
+```java showLineNumbers
 public Random() {
     this(seedUniquifier() ^ System.nanoTime());
 }
@@ -61,7 +61,7 @@ public Random() {
 동시에 여러 곳에서 요청하더라도 각각 다른 난수를 생성하기 위해서죠. `seed`가 올바르게 업데이트되지 않는다면, `while`을 계속해서 반복하게 됩니다.
 요청이 많아질 때 성능이 얼마나 저하되는지 직접 확인해볼까요?
 
-```java
+```java showLineNumbers
 private static Random random = new Random();
 
 @Test
