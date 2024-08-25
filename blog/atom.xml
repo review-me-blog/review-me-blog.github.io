@@ -2,11 +2,195 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://your-docusaurus-site.example.com/blog</id>
     <title>리뷰미 팀블로그 Blog</title>
-    <updated>2024-08-19T00:00:00.000Z</updated>
+    <updated>2024-08-25T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://your-docusaurus-site.example.com/blog"/>
     <subtitle>리뷰미 팀블로그 Blog</subtitle>
     <icon>https://your-docusaurus-site.example.com/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[무엇이 좋은 도메인 설계인가?]]></title>
+        <id>https://your-docusaurus-site.example.com/blog/domain-design</id>
+        <link href="https://your-docusaurus-site.example.com/blog/domain-design"/>
+        <updated>2024-08-25T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[작성 배경]]></summary>
+        <content type="html"><![CDATA[<h3 class="anchor anchorWithStickyNavbar_LWe7" id="작성-배경">작성 배경<a class="hash-link" aria-label="작성 배경에 대한 직접 링크" title="작성 배경에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/domain-design#%EC%9E%91%EC%84%B1-%EB%B0%B0%EA%B2%BD">​</a></h3>
+<p>프로젝트를 시작하고 3주 동안, 리뷰미는 3번의 도메인 구조 변경을 겪었습니다. 모든 구조는 우리 팀이 치열하게 고민한 끝에 나온 것들이었습니다. 그래서 바꾸는 것이 아쉽기도 했습니다. (자식같은 내 코드..) 하지만 분명한 필요성을 느껴 구조 변경을 했고, 그 과정에서 ‘좋은 설계란 무엇인가’에 대해 고민하게 되었습니다. 이 글에서는 리뷰미 서비스의 도메인 변천사와, ‘좋은 설계란 무엇인가?’에 대한 개인적 견해를 적어보려 합니다.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="첫-번째-설계">첫 번째 설계<a class="hash-link" aria-label="첫 번째 설계에 대한 직접 링크" title="첫 번째 설계에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/domain-design#%EC%B2%AB-%EB%B2%88%EC%A7%B8-%EC%84%A4%EA%B3%84">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="목표--핵심-기능을-빠르게-구현-">목표 : 핵심 기능을 빠르게 구현 ⏩<a class="hash-link" aria-label="목표 : 핵심 기능을 빠르게 구현 ⏩에 대한 직접 링크" title="목표 : 핵심 기능을 빠르게 구현 ⏩에 대한 직접 �링크" href="https://your-docusaurus-site.example.com/blog/domain-design#%EB%AA%A9%ED%91%9C--%ED%95%B5%EC%8B%AC-%EA%B8%B0%EB%8A%A5%EC%9D%84-%EB%B9%A0%EB%A5%B4%EA%B2%8C-%EA%B5%AC%ED%98%84-">​</a></h3>
+<p>우리 팀의 첫 목표는 핵심 기능을 빠르게 구현하는 것이었습니다.
+따라서 ‘리뷰를 작성하는 기능’과 ‘리뷰를 보는 기능’을 빨리 구현하기 위한 설계를 했습니다.
+기능을 빠르게 구현하기 위해 우리 팀은 아래 기준으로 설계를 했습니다.</p>
+<ol>
+<li>팀원들이 모두 사용해본 방법</li>
+<li>인지 부담이 적은(생각할게 적은) 방법</li>
+</ol>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="구현-순서--erd-작성--도메인-설계">구현 순서 : ERD 작성 → 도메인 설계<a class="hash-link" aria-label="구현 순서 : ERD 작성 → 도메인 설계에 대한 직접 링크" title="구현 순서 : ERD 작성 → 도메인 설계에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/domain-design#%EA%B5%AC%ED%98%84-%EC%88%9C%EC%84%9C--erd-%EC%9E%91%EC%84%B1--%EB%8F%84%EB%A9%94%EC%9D%B8-%EC%84%A4%EA%B3%84">​</a></h3>
+<p>우리 팀은 ERD 작성 → 도메인 설계의 순서로 구현했습니다.
+ERD를 먼저 설계하자는 의견은 저의 의견이었습니다.
+우리 서비스에 어떤 데이터들이 저장될 것이며, 이들이 어떻게 연결되어있는지를 정해야 도메인 설계를 할 수 있을 것이라 생각했습니다.</p>
+<p style="text-align:center"><img src="https://your-docusaurus-site.example.com/assets/images/first_erd-b4bc7a0feec4ac3b8fe2215727d92648.png"></p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="도메인-연관관계">도메인 연관관계<a class="hash-link" aria-label="도메인 연관관계에 대한 직접 링크" title="도메인 연관관계에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/domain-design#%EB%8F%84%EB%A9%94%EC%9D%B8-%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84">​</a></h3>
+<p>빠른 구현을 위해, ERD를 보며 아래 규칙을 따라 구현했습니다.
+앞서 언급한 것처럼 단순하고, 생각할 거리가 많지 않은 규칙입니다. 💁🏻‍♀️</p>
+<ul>
+<li>단방향 @ManyToOne 만 존재</li>
+<li>list 형식을 저장해야 할 때면 별도의 테이블 생성</li>
+<li>N<!-- -->:N<!-- --> 관계에 대해서는 중간 테이블 생성</li>
+</ul>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="로직-위치">로직 위치<a class="hash-link" aria-label="로직 위치에 대한 직접 링크" title="로직 위치에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/domain-design#%EB%A1%9C%EC%A7%81-%EC%9C%84%EC%B9%98">​</a></h3>
+<p>우리 팀은 각 도메인을 <strong>객체로서</strong> 활용하려 했습니다.
+그래서 객체들이 협력할 수 있게, 도메인 관련 로직을 도메인 내부에 두었습니다.
+그러다 도메인 내부에 너무 많은 로직이 있다면 포장객체로 분리해주었습니다.
+예를 들어, <a href="https://github.com/woowacourse-teams/2024-review-me/blob/dad1912ebeacc6b54f25c78b23799e258a40c09c/backend/src/main/java/reviewme/keyword/Keyword.java" target="_blank" rel="noopener noreferrer">Keyword</a> 라는 도메인이 있고,
+<code>List&lt;Keyword&gt;</code> 에 대해 갯수 검증과 중복 검증을 해줘야 한다면 그 역할을 하는 일급 컬렉션 <a href="https://github.com/woowacourse-teams/2024-review-me/blob/48e7b68d4dc67873a5f34d118ccdee118f2c0d00/backend/src/main/java/reviewme/keyword/domain/SelectedKeywords.java" target="_blank" rel="noopener noreferrer">SelectedKeywords</a> 를 만들어주었습니다.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="첫-번째-설계-후">첫 번째 설계 후..<a class="hash-link" aria-label="첫 번째 설계 후..에 대한 직접 링크" title="첫 번째 설계 후..에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/domain-design#%EC%B2%AB-%EB%B2%88%EC%A7%B8-%EC%84%A4%EA%B3%84-%ED%9B%84">​</a></h3>
+<p>첫 번째 설계 후 우리 팀원들은 모두 같은 생각을 하게 되었습니다.</p>
+<p><em>‘이건 객체지향이 아니야!!’ 😣</em></p>
+<p>라는 생각이었습니다. 데이터베이스를 먼저 생각하고, 그로부터 엔티티 객체를 도출했기 때문이었을까요?
+분명히 ‘도메인 코드는 인프라에 의존적이지 않아야 한다’고 배웠었는데, 도메인이 JPA를 위해 존재하는 듯 했습니다.
+그동안 배운 POJO를 사용하는 순수 어플리케이션과는 너무 다르기에 괴리감이 느껴졌습니다.
+우리 팀원들은 모두 이 문제에 공감했고, ‘도메인으로부터 시작해보자’ 라는 생각으로 다시 설계를 하게 되었습니다.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="두-번째-설계">두 번째 설계<a class="hash-link" aria-label="두 번째 설계에 대한 직접 링크" title="두 번째 설계에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/domain-design#%EB%91%90-%EB%B2%88%EC%A7%B8-%EC%84%A4%EA%B3%84">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="목표--가장-중요한-것은-도메인-간의-협력-">목표 : 가장 중요한 것은 도메인 간의 협력 🤝<a class="hash-link" aria-label="목표 : 가장 중요한 것은 도메인 간의 협력 🤝에 대한 직접 링크" title="목표 : 가장 중요한 것은 도메인 간의 협력 🤝에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/domain-design#%EB%AA%A9%ED%91%9C--%EA%B0%80%EC%9E%A5-%EC%A4%91%EC%9A%94%ED%95%9C-%EA%B2%83%EC%9D%80-%EB%8F%84%EB%A9%94%EC%9D%B8-%EA%B0%84%EC%9D%98-%ED%98%91%EB%A0%A5-">​</a></h3>
+<p>두 번째 설계에서는 ‘도메인 객체’ 그 자체에 집중하기로 했습니다.
+‘어떤 성질’을 갖는 도메인이 ‘어떻게 협력’하는지 먼저 정하고, JPA는 나중에 붙이자 생각하며 구현했습니다.
+사실 이 방법이 맞다는 확신은 없었습니다😅
+영속 로직을 JPA를 사용하여 처리하고 있는데, JPA를 배제해도 되나? 하는 의문도 들었고요.
+하지만 결과적으로 이 선택이 올바르지 않더라도, 왜 객체지향적으로만 생각하면 안 되는지를 경험해보고 싶었습니다.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="구현-순서--요구-사항-분석--협력-관계-파악--도메인-설계--jpa-적용">구현 순서 : 요구 사항 분석 → 협력 관계 파악 → 도메인 설계 → JPA 적용<a class="hash-link" aria-label="구현 순서 : 요구 사항 분석 → 협력 관계 파악 → 도메인 설계 → JPA 적용에 대한 직접 링크" title="구현 순서 : 요구 사항 분석 → 협력 관계 파악 → 도메인 설계 → JPA 적용에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/domain-design#%EA%B5%AC%ED%98%84-%EC%88%9C%EC%84%9C--%EC%9A%94%EA%B5%AC-%EC%82%AC%ED%95%AD-%EB%B6%84%EC%84%9D--%ED%98%91%EB%A0%A5-%EA%B4%80%EA%B3%84-%ED%8C%8C%EC%95%85--%EB%8F%84%EB%A9%94%EC%9D%B8-%EC%84%A4%EA%B3%84--jpa-%EC%A0%81%EC%9A%A9">​</a></h3>
+<p>두번째 설계에서는 가장 먼저 요구 사항에 대해 분석하고 도메인의 협력 관계를 파악했습니다.
+그리고 각 도메인이 어떤 역할을 해야 하는지 적어보고, 협력해야 하는 방향을 화살표로 표현했습니다.
+이를 바탕으로 도메인 객체를 도출하고 참조 관계를 설정했습니다.</p>
+<p style="text-align:center"><img src="https://your-docusaurus-site.example.com/assets/images/oop-7e9945514543b9c3130ea4fb09ac6998.png"></p>
+<p>팀원들은 “이게 자바지!” 하며 만족해했습니다.
+브랜치 이름을 <code>pure-java-is-god</code> 라고 할 정도였습니다.
+하지만 JPA를 붙이자 재앙이 시작되었습니다..</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="pojo들의-협력--jpa---양방향-연관관계-뒤범벅">POJO들의 협력 + JPA  ⇒ 양방향 연관관계 뒤범벅<a class="hash-link" aria-label="POJO들의 협력 + JPA  ⇒ 양방향 연관관계 뒤범벅에 대한 직접 링크" title="POJO들의 협력 + JPA  ⇒ 양방향 연관관계 뒤범벅에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/domain-design#pojo%EB%93%A4%EC%9D%98-%ED%98%91%EB%A0%A5--jpa---%EC%96%91%EB%B0%A9%ED%96%A5-%EC%97%B0%EA%B4%80%EA%B4%80%EA%B3%84-%EB%92%A4%EB%B2%94%EB%B2%85">​</a></h3>
+<p>객체에서 시작한 설계에 JPA를 붙이려 하니 부자연스러운 부분들이 생겼습니다.
+가장 어려움을 겪었던 것은 ‘연관관계’에 대한 부분이었습니다.
+도메인의 협력을 생각하면 A → B 의존인데, JPA의 연관관계를 생각하면 B → A 의존이 필요했습니다.
+하지만 우리 팀은 순수 자바를 놓치지 말자는 목표가 있었기 때문에, 두 의존 방향 모두 가져가기로 했습니다.
+그리고 그 결과, 무수한 양방향 연관관계들이 생겨났습니다😵‍💫</p>
+<p>양방향 연관관계로 이어진 객체들은 그 경계가 모호했기 때문에 여러 가지 이슈로 이어졌습니다.
+조회를 할 때는 Lazy Initialization 문제가 발생했습니다.
+이를 해결하기 위해 fetchType을 설정했어야 했는데, 어디까지를 EAGER, 어디까지를 LAZY로 둘지 애매했습니다.
+저장을 할 때는 DB와 메모리의 동기화를 위해 연관관계 편의 메세드를 작성해야 했습니다.
+또한 테스트를 할 때는 연관된 모든 데이터를 세팅하기 위해 given 구문 길게 작성해서,
+정작 무엇을 테스트하는 것인지 알아보기 힘들어졌습니다.
+이렇듯 복잡한 부분들이 많았지만, 이런 문제들은 ‘좋은 설계를 위해 개발자가 수고해야 하는 부분’이라 생각했습니다.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="길을-잃은-우리-">길을 잃은 우리 🍂<a class="hash-link" aria-label="길을 잃은 우리 🍂에 대한 직접 링크" title="길을 잃은 우리 🍂에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/domain-design#%EA%B8%B8%EC%9D%84-%EC%9E%83%EC%9D%80-%EC%9A%B0%EB%A6%AC-">​</a></h3>
+<p>두번째 설계를 바꾸게 된 결정적 계기가 된 것은 바로 기획의 변경이었습니다.
+바뀐 기획에 따라 특정 도메인을 삭제할 필요가 있었는데, 그 도메인은 여러 도메인에서 의존하는 것이라 변경이 매우 어려웠습니다.
+<strong>하나의 도메인 객체를 변경하니 여러 곳에서 컴파일 에러</strong>가 발생했습니다.</p>
+<p>또한 기획이 달라짐에 따라 도메인과 관련된 정책들도 변경이 되었는데요.
+로직을 도메인에서 처리하게 했기 때문에 정책이 변경될 때마다 도메인 내부를 바꿔야 했습니다.
+설상가상으로 도메인들이 촘촘한 연관관계로 엮여있었기 때문에, <strong>한 도메인의 변경이 다른 도메인에게 전파</strong>되었습니다.
+조금의 변경에도 와장창 무너지는 코드를 보며, 설계가 잘못되었다는 것을 깨달을 수 있었습니다.
+이 설계도 아니라니!
+<code>java-is-god</code>이었던 브랜치는 어느새 <code>we-are-lost</code>으로 변경되었습니다😔</p>
+<p style="text-align:center"><img src="https://your-docusaurus-site.example.com/assets/images/we_are_lost-1ff1ed03bc528ffd61f32f005fdb65ee.png"></p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="객체지향-jpa">객체지향? JPA?<a class="hash-link" aria-label="객체지향? JPA?에 대한 직접 링크" title="객체지향? JPA?에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/domain-design#%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5-jpa">​</a></h3>
+<p>잘 협력한다고 생각했던 설계가 오히려 변경에 취약한 설계였다니..
+되게 많은 생각이 들었습니다.
+이때 ‘어떤 것을 중요하게 생각해야 할까?’에 대해 많은 생각을 했습니다.
+객체지향을 배운 사람으로서, 객체지향의 가치들이 좋은 것이라 여겼으나, 이를 어떻게 DB 에 적용을 할 수 있는 것인지 갈피를 잡기 힘들었습니다.
+아니, 사실은 정말로 객체지향이 좋은 가치였을까? 라는 생각도 들었습니다.</p>
+<p>예를 들어, SOLID 중 S에 해당하는 단일 책임 원칙을 지키기 위해 도메인과 관련된 로직을 도메인 안에 넣었습니다.
+그랬더니 비지니스 정책이 바뀔 때마다 도메인이 달라져야 했습니다.
+그뿐 아니라, JPA 에서는 FK 를 저장해야 한다는 이유로 객체를 직접 참조합니다.
+이런 참조는 강한 결합을 하게 만들어 객체지향에서는 피해야 하는 것입니다.
+그렇다면 어떤 것을 우선시 해야 좋은 설계라고 할 수 있을까? 고민이 되었습니다. 이때 코치님께 들었던 조언이 방향이 되어주었습니다.</p>
+<blockquote>
+<p>많은 개발자들이 ‘공들여 설계를 해야 변화가 없을’ 것이라고 생각한다.
+하지만 사실은 그렇지 않다. 절대 변하지 않은 것이라 생각했던 것도 나중에 변경이 될 수 있다.
+중요한 것은, <strong>요구사항이 변경되었을 때 어떻게 유연하게 대처할 수 있는가?</strong> 이다.</p>
+</blockquote>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="무엇이-좋은-설계인가">무엇이 좋은 설계인가?<a class="hash-link" aria-label="무엇이 좋은 설계인가?에 대한 직접 링크" title="무엇이 좋은 설계인가?에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/domain-design#%EB%AC%B4%EC%97%87%EC%9D%B4-%EC%A2%8B%EC%9D%80-%EC%84%A4%EA%B3%84%EC%9D%B8%EA%B0%80">​</a></h2>
+<p>앞선 경험들과 코치님의 조언을 토대로, 좋은 설계에 대한 기준을 세울 수 있었습니다.
+좋은 설계에 앞서, 좋은 어플리케이션에 대해 생각해봅시다.
+어떤 어플리케이션이 좋은 어플리케이션일까요?
+요구사항을 잘 지키는 어플리케이션입니다.
+그런데 요구사항이 변하는 것은 막을 수도, 예측할 수도 없습니다.
+그러니 <strong>변경되는 요구사항을 빨리 반영하고, 잘 지키는 어플리케이션</strong>이 좋은 어플리케이션일 것입니다.</p>
+<p>그렇다면 좋은 도메인 설계는 무엇일까요?
+<strong>변경에 유연한 설계</strong>가 좋은 설계라고 생각합니다.
+애초에 우리가 객체지향 프로래밍을 하는 이유를 생각해봅시다.
+그것은 '아름다운 코드'를 위해서가 아닌 '유지보수'를 위해서입니다.
+즉, 우리 코드가 객체지향적인지, 절차지향적인지, JPA 중심 설계인지보다
+<strong>'변경에 유연한지'가 더 중요한 기준</strong>이라는 결론을 내리게 되었습니다.</p>
+<hr>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="세번째-설계">세번째 설계<a class="hash-link" aria-label="세번째 설계에 대한 직접 링크" title="세번째 설계에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/domain-design#%EC%84%B8%EB%B2%88%EC%A7%B8-%EC%84%A4%EA%B3%84">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="목표--변경에-유연한-구조-">목표 : 변경에 유연한 구조 🌊<a class="hash-link" aria-label="목표 : 변경에 유연한 구조 🌊에 대한 직접 링크" title="목표 : 변경에 유연한 구조 🌊에 대한 직접 �링크" href="https://your-docusaurus-site.example.com/blog/domain-design#%EB%AA%A9%ED%91%9C--%EB%B3%80%EA%B2%BD%EC%97%90-%EC%9C%A0%EC%97%B0%ED%95%9C-%EA%B5%AC%EC%A1%B0-">​</a></h3>
+<p>우리 팀은 ‘변경에 유연한 구조’를 최상위 기준으로 두며 세번째 설계를 했습니다.
+그리고 이를 위해 세가지 큰 변화를 주었습니다.
+(이 과정에서 <a href="https://www.youtube.com/watch?v=dJ5C4qRqAgA" target="_blank" rel="noopener noreferrer">우아한 객체지향</a>이라는 동영상을 많이 참고했습니다🙇🏻‍♀️)</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="1-불필요한-객체-참조-끊기-️">1. 불필요한 객체 참조 끊기 ✂️<a class="hash-link" aria-label="1. 불필요한 객체 참조 끊기 ✂️에 대한 직접 링크" title="1. 불필요한 객체 참조 끊기 ✂️에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/domain-design#1-%EB%B6%88%ED%95%84%EC%9A%94%ED%95%9C-%EA%B0%9D%EC%B2%B4-%EC%B0%B8%EC%A1%B0-%EB%81%8A%EA%B8%B0-%EF%B8%8F">​</a></h3>
+<p>두번째 설계에서 우리 팀이 경험한 객체 참조의 불편함을 정리하자면, 아래와 같습니다.</p>
+<ol>
+<li>객체 변경이 전파된다.</li>
+<li>조회 시, Lazy initialization 를 야기할 수 있다. 이를 방지하기 위해 fetch 를 eager 로 설정해야 하는데, 이렇게 되면 lazy loading 의 장점을 활용하지 못한다. 또한 어떤것까지 eager 로 할지, lazy 로 할지에 대한 경계가 모호하다.</li>
+<li>간단한 조회에도 복잡한 join 문으로 성능이 저하된다.</li>
+<li>객체 그래프가 깊다면, 트랜잭션도 길어진다. 트랜잭션이 길어지면 하나의 커넥션을 오래 사용하게 된다.</li>
+<li>연관된 객체의 생명주기가 다르다면, lock 을 걸어줘야 한다. 예를들어 A가 B에 의존하는데, B는 A와 생명주기가 달라서 A와 관계없이 수정, 삭제될 수 있다고 하자. 그렇다면 A 에 대한 연산을 할 때 B 가 수정, 삭제되지 않도록 B 에 대해 lock 을 걸어줘야 한다. 이는 성능 저하로 이어질 수 있다.</li>
+</ol>
+<p>따라서 <strong>JPA 연관관계를 끊어주고, 다른 엔티티의 id 를 long 타입으로 참조</strong>하게 했습니다.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="2-생명주기가-같은-것끼리-묶어주기-">2. 생명주기가 같은 것끼리 묶어주기 🪢<a class="hash-link" aria-label="2. 생명주기가 같은 것끼리 묶어주기 🪢에 대한 직접 링크" title="2. 생명주기가 같은 것끼리 묶어주기 🪢에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/domain-design#2-%EC%83%9D%EB%AA%85%EC%A3%BC%EA%B8%B0%EA%B0%80-%EA%B0%99%EC%9D%80-%EA%B2%83%EB%81%BC%EB%A6%AC-%EB%AC%B6%EC%96%B4%EC%A3%BC%EA%B8%B0-">​</a></h3>
+<p>하지만 모든 객체 참조를 없애진 않았고, 생명 주기를 같이 하는 객체는 참조하게 했습니다.
+예를 들어, 리뷰를 작성할 때 Review 객체 뿐 아니라 TextAnswer 이라는 객체도 같이 생성됩니다.
+조회를 할 때도 이들은 하나로 묶여 조회되며, 수정이나 삭제를 할 때도 함께합니다.
+이러한 객체들은 <code>FetchType.EAGER</code>, <code>CascadeType.PERSIST</code> 와 같은 속성을 통해 <strong>하나의 단위처럼 관리되게</strong> 해주었습니다.
+이렇듯 반드시 필요한 연관관계는 하나처럼 만들어주고, 불필요한 관계를 끊으며 객체 사이에 명확한 경계를 만들어주었습니다.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="3-하나의-기능을-하나의-객체로-모으기-">3. 하나의 기능을 하나의 객체로 모으기 🪣<a class="hash-link" aria-label="3. 하나의 기능을 하나의 객체로 모으기 🪣에 대한 직접 링크" title="3. 하나의 기능을 하나의 객체로 모으기 🪣에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/domain-design#3-%ED%95%98%EB%82%98%EC%9D%98-%EA%B8%B0%EB%8A%A5%EC%9D%84-%ED%95%98%EB%82%98%EC%9D%98-%EA%B0%9D%EC%B2%B4%EB%A1%9C-%EB%AA%A8%EC%9C%BC%EA%B8%B0-">​</a></h3>
+<p>두번째 설계에서는 로직을 모두 도메인에 넣고 이를 외부에서 호출해주었습니다.
+이는 객체지향의 관점에서 보면 아름다운 협력처럼 보입니다.
+하지만 변경이 생길 때 어느 부분을 수정해야 하는지 잘 보이지 않았습니다.
+즉, 변경을 같이 해야 할 것이 여러 곳에 분산이 되는 문제가 있었습니다.
+이를 해결하기 위해 세번째 설계에서는 하나의 기능에 연관된 것들을 하나의 객체로 모아주었습니다.</p>
+<p>이는 다소 절차지향적인 설계라고도 할 수 있습니다.
+하지만, 우리의 코드가 객체지향인지 절차지향인지보다 더 중요한 것은 변경에 유연히 대응하는 것입니다.
+따라서 <strong>변경 시 확인할 곳을 명확하게</strong> 해주는 코드를 작성해주었습니다.</p>
+<hr>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="이-과정을-통해-배운-것">이 과정을 통해 배운 것<a class="hash-link" aria-label="이 과정을 통해 배운 것에 대한 직접 링크" title="이 과정을 통해 배운 것에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/domain-design#%EC%9D%B4-%EA%B3%BC%EC%A0%95%EC%9D%84-%ED%86%B5%ED%95%B4-%EB%B0%B0%EC%9A%B4-%EA%B2%83">​</a></h3>
+<ol>
+<li>
+<p><strong>객체지향이 반드시 옳지 않을 수 있다</strong>는 것을 배웠습니다.
+모든 곳에 객체지향을 엄격히 적용하기에는 괴리가 있는 부분들이 있습니다.
+어플리케이션에는 여러가지 개념적인 것들이 사용됩니다.
+Layered architeture, URI resource, ORM, DB 등..
+객체지향 또한 개념적인 것이기 때문에 이들과 어울리지 않을 수 있습니다.
+그럼에도 객체지향을 고수하려 하다가는 오히려 혼란스러울 것입니다. (우리의 두번째 설계처럼 말이죠)</p>
+</li>
+<li>
+<p>달라지는 요구사항에 따라서 <strong>우리 코드 또한 언제든 달라질 수 있다</strong>는 것을 배웠습니다.
+우리 팀은 초반에 꼼꼼히 코드리뷰 하고, 열심히 토론했었습니다.
+저 역시 저를 소개하는 문구가 ‘한 줄의 코드를 작성하더라도 의미를 담자’라고 할 정도로, 정성을 들여 코드를 짰었습니다.
+하지만 요구사항의 변경으로 그 코드 전체가 날라가는 경험을 하니.. 사소한 것에 집착하지 않게 되었습니다.
+물론 코드를 대충 작성하겠다는 것은 절대 아닙니다.
+다만 너무 세부적인 것에 집중하느라 시간을 쓰지 말아야겠다는 생각입니다.</p>
+</li>
+<li>
+<p><strong>서비스는 동적으로 변화한다</strong>는 것을 배웠습니다.
+기존 기능에 살이 붙기도 하고, 있던 기능이 사라지기도 합니다.
+앞으로 붙을 살, 없어질 기능에 대해서는 미리 알 수 없는 노릇입니다.
+따라서 우리가 할 수 있는 최선은 핵심 기능에 집중하며, 변경에 유연하게 설계하는 것입니다.</p>
+</li>
+<li>
+<p>앞으로의 <strong>확장에 대해 예측하는 것은 좋지 않을 수 있습니다.</strong>
+저도 알고싶지는 않았는데요😅, 첫번째 설계에서 ‘이건 나중에 무조건 생긴다’고 생각했던 기능을 갈아엎으며 깨닫게 되었습니다.</p>
+</li>
+</ol>
+<p>우리 팀은 왜 계속 기획이 바뀌는지, 왜 설계가 바뀌는지 원망스러웠던 적도 있었습니다.
+하지만 변경이 많았기 때문에 좋은 설계에 대한 기준을 세울 수 있었던 것 같아 지금은 감사한 마음이 듭니다.
+앞으로 또 어떤 변경이 있을지는 모르겠지만, 그 변화에 유연히 대처할 수 있는 코드를 작성해보겠습니다🤗</p>]]></content>
+        <author>
+            <name>나영서 (산초)</name>
+            <uri>https://github.com/nayonsoso</uri>
+        </author>
+        <category label="blog" term="blog"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[리뷰미에서 랜덤을 활용하는 방법]]></title>
         <id>https://your-docusaurus-site.example.com/blog/random</id>
@@ -34,7 +218,7 @@ Java에서는 시각에 따라 <code>seed</code>가 결정돼요. 서로 다른 
 앞서 난수 생성기를 <strong>PRNG</strong>라고 불렀다면, 암호학적으로 안전한(Cryptographically safe) 난수 생성기는 <strong>CSPRNG</strong>라고 부릅니다.
 <a href="https://datatracker.ietf.org/doc/html/rfc4086" target="_blank" rel="noopener noreferrer">RFC 4086</a>을 만족하도록 기계를 설계해야 하며, 다양한 방법으로 <code>seed</code>를 초기화하는 방법을 소개하기도 합니다.</p>
 <p style="text-align:center"><img src="https://your-docusaurus-site.example.com/assets/images/rfc-21ff9a2322d49e8401e966da3ae851e3.webp"></p>
-<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-동시성-문제를-해결하며-난수-생성하기">🫂 동시성 문제를 해결하며 난수 생성하기<a class="hash-link" aria-label="🫂 동시성 문제를 해결하며 난수 생성하기에 대한 직접 링크" title="🫂 동시성 문제를 해결하며 난�수 생성하기에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/random#-%EB%8F%99%EC%8B%9C%EC%84%B1-%EB%AC%B8%EC%A0%9C%EB%A5%BC-%ED%95%B4%EA%B2%B0%ED%95%98%EB%A9%B0-%EB%82%9C%EC%88%98-%EC%83%9D%EC%84%B1%ED%95%98%EA%B8%B0">​</a></h2>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="-동시성-문제를-해결하며-난수-생성하기">🫂 동시성 문제를 해결하며 난수 생성하기<a class="hash-link" aria-label="🫂 동시성 문제를 해결하며 난수 생성하기에 대한 직접 링크" title="🫂 동시성 문제를 해결하며 난수 생성하기에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/random#-%EB%8F%99%EC%8B%9C%EC%84%B1-%EB%AC%B8%EC%A0%9C%EB%A5%BC-%ED%95%B4%EA%B2%B0%ED%95%98%EB%A9%B0-%EB%82%9C%EC%88%98-%EC%83%9D%EC%84%B1%ED%95%98%EA%B8%B0">​</a></h2>
 <p>대부분의 경우 <code>Random</code> 객체를 한 번 만들어서 여러 곳에서 사용합니다. 동시에 여러 스레드에서 난수를 생성하려고 한다면 어떻게 될까요?
 <code>nextInt()</code>는 <code>next(32)</code>를 부르고, 위의 메서드에서 보았듯이 <code>AtomicLong</code>을 사용해 <code>seed</code>를 변형해가며 난수를 생성합니다.
 동시에 여러 곳에서 요청하더라도 각각 다른 난수를 생성하기 위해서죠. <code>seed</code>가 올바르게 업데이트되지 않는다면, <code>while</code>을 계속해서 반복하게 됩니다.
@@ -135,7 +319,7 @@ BasicErrorController에서 예외가 핸들링되는 것을 확인할 수 있었
 @ExceptionHandler는 예외 응답의 코드와 <strong>메세지를 자유롭게 설정</strong>할 수 있다는 장점이 있습니다.
 @ExceptionHandler는 컨트롤러의 메서드에 바로 사용할 수도 있으며, @ControllerAdvice나 @RestControllerAdvice가 있는 클래스의 메소드에도 사용할 수 있습니다.
 만약 컨트롤러의 메서드에도 @ExceptionHandler를 사용하고, @ControllerAdvice에도 사용한다면 전자가 우선시됩니다.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="스프링-내부의-기본-예외들">스프링 내부의 기본 예외들<a class="hash-link" aria-label="스프링 내부의 기본 예외들에 대한 직접 링크" title="스프링 내부의 기본 예외들에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/exception-response#%EC%8A%A4%ED%94%84%EB%A7%81-%EB%82%B4%EB%B6%80%EC%9D%98-%EA%B8%B0%EB%B3%B8-%EC%98%88%EC%99%B8%EB%93%A4">​</a></h3>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="스프링-내부의-기본-예외들">스프링 내부의 기본 예외들<a class="hash-link" aria-label="스프링 내부의 기본 예외들에 대한 직접 링크" title="스프링 내부의 기본 예��외들에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/exception-response#%EC%8A%A4%ED%94%84%EB%A7%81-%EB%82%B4%EB%B6%80%EC%9D%98-%EA%B8%B0%EB%B3%B8-%EC%98%88%EC%99%B8%EB%93%A4">​</a></h3>
 <p>스프링에서 발생할 수 있는 기본 예외들은 미리 정의되어, <strong>DefaultHandler ExceptionResolver</strong>에서 처리됩니다.
 대표적인 예외로는 지원하지 않는 HttpMethod 로 요청을 보낼 때 발생하는 HttpRequestMethod NotSupportedException가 있습니다.
 DefaultHandler ExceptionResolver는 에러를 핸들링해서 어떤 기본 예외인지 판별하는 역할까지만 하므로, 직접 예외 응답을 반환하지는 않습니다.
@@ -160,7 +344,7 @@ ExceptionHandler를 사용하면 예외 응답 형식을 지정할 수 있습니
 <p>스프링의 기본 예외 처리 방식인 BasicErrorController 를 사용하는 방식은,
 http status code 와 예외 메세지를 지정할 수 없다는 문제가 있습니다.
 ExceptionHandler 를 사용해서 유연하게 예외를 핸들링하는 것이 좋습니다.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="2-controlleradvice-안에서-exceptionhandler를-사용하자">2. ControllerAdvice 안에서 ExceptionHandler를 사용하자.<a class="hash-link" aria-label="2. ControllerAdvice 안에서 ExceptionHandler를 사용하자.에 대한 직접 링크" title="2. ControllerAdvice 안에서 ExceptionHandler를 사용하자.에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/exception-response#2-controlleradvice-%EC%95%88%EC%97%90%EC%84%9C-exceptionhandler%EB%A5%BC-%EF%BF%BD%EF%BF%BD%EC%82%AC%EC%9A%A9%ED%95%98%EC%9E%90">​</a></h3>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="2-controlleradvice-안에서-exceptionhandler를-사용하자">2. ControllerAdvice 안에서 ExceptionHandler를 사용하자.<a class="hash-link" aria-label="2. ControllerAdvice 안에서 ExceptionHandler를 사용하자.에 대한 직접 링크" title="2. ControllerAdvice 안에서 ExceptionHandler를 사용하자.에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/exception-response#2-controlleradvice-%EC%95%88%EC%97%90%EC%84%9C-exceptionhandler%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%98%EC%9E%90">​</a></h3>
 <p>ExceptionHandler를 사용해서 각 컨트롤러마다 예외를 처리하는 방식은 중복되는 코드가 많을 것입니다.
 또한 어떤 컨트롤러에는 ExceptionHandler를 붙이고, 다른 컨트롤러에는 붙이지 않는 등의 누락도 생길 수 있습니다.
 따라서 예외 핸들링을 전역으로 할 수 있는 ControllerAdvice 안에서 ExceptionHandler를 사용하는 것이 좋습니다.</p>
