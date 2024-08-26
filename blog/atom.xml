@@ -2,11 +2,91 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://your-docusaurus-site.example.com/blog</id>
     <title>리뷰미 팀블로그 Blog</title>
-    <updated>2024-08-25T00:00:00.000Z</updated>
+    <updated>2024-08-26T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://your-docusaurus-site.example.com/blog"/>
     <subtitle>리뷰미 팀블로그 Blog</subtitle>
     <icon>https://your-docusaurus-site.example.com/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[리뷰미 프로젝트 기획 및 리뷰미 version 1.0.0 소개]]></title>
+        <id>https://your-docusaurus-site.example.com/blog/release-version-1.0.0</id>
+        <link href="https://your-docusaurus-site.example.com/blog/release-version-1.0.0"/>
+        <updated>2024-08-26T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[---]]></summary>
+        <content type="html"><![CDATA[<hr>
+<h1>🚢 리뷰미 프로젝트 기획: 서비스 주제 선정부터 서비스 비전과 핵심 기능 검증까지</h1>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="프로젝트-주제-선정">프로젝트 주제 선정<a class="hash-link" aria-label="프로젝트 주제 선정에 대한 직접 링크" title="프로젝트 주제 선정에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/release-version-1.0.0#%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%A3%BC%EC%A0%9C-%EC%84%A0%EC%A0%95">​</a></h2>
+<p>2024-07-02 레벨3 시작과 함께 레벨3 프로젝트의 기획을 시작했습니다.
+먼저 프로젝트의 주제 선정 회의를 거쳐 주제를 선정한 후, 프로젝트의 기능을 추렸습니다.
+이후 추가적인 기획 회의를 통해 서비스의 타깃과 비전을 선정했습니다.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="리뷰미-서비스-타깃-및-비전-설명">리뷰미 서비스 타깃 및 비전 설명<a class="hash-link" aria-label="리뷰미 서비스 타깃 및 비전 설명에 대한 직접 링크" title="리뷰미 서비스 타깃 및 비전 설명에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/release-version-1.0.0#%EB%A6%AC%EB%B7%B0%EB%AF%B8-%EC%84%9C%EB%B9%84%EC%8A%A4-%ED%83%80%EA%B9%83-%EB%B0%8F-%EB%B9%84%EC%A0%84-%EC%84%A4%EB%AA%85">​</a></h3>
+<p>리뷰미는 자신이 어떤 개발자인지 모르거나 이를 파악하기 어려운 개발자의 메타인지 및 자기표현 니즈를 해결하기 위해 탄생한 서비스입니다.</p>
+<p>리뷰미는 사용자들이 협업을 함께한 동료의 피드백을 통해 자신이 어떤 개발자인지 파악하고 이를 표현할 수 있게 도와주는 것을 목표로 하고 있습니다.</p>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="핵심-기능을-위한-실험들과-사용자-테스트">핵심 기능을 위한 실험들과 사용자 테스트<a class="hash-link" aria-label="핵심 기능을 위한 실험들과 사용자 테스트에 대한 직접 링크" title="핵심 기능을 위한 실험들과 사용자 테스트에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/release-version-1.0.0#%ED%95%B5%EC%8B%AC-%EA%B8%B0%EB%8A%A5%EC%9D%84-%EC%9C%84%ED%95%9C-%EC%8B%A4%ED%97%98%EB%93%A4%EA%B3%BC-%EC%82%AC%EC%9A%A9%EC%9E%90-%ED%85%8C%EC%8A%A4%ED%8A%B8">​</a></h2>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="실험-목적과-방법">실험 목적과 방법<a class="hash-link" aria-label="실험 목적과 방법에 대한 직접 링크" title="실험 목적과 방법에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/release-version-1.0.0#%EC%8B%A4%ED%97%98-%EB%AA%A9%EC%A0%81%EA%B3%BC-%EB%B0%A9%EB%B2%95">​</a></h3>
+<p>리뷰미 서비스의 목표를 위해서 선행되어야 하는 것은 '양질의 리뷰'입니다. 그래서 리뷰미 팀은 **'양질의 리뷰를 작성하는 것'**을 핵심 기능으로 선정했습니다.
+리뷰미의 첫 번째 핵심 기능인 '양질의 리뷰 작성'을 위해 팀 내에서 사용자 테스트를 동반한 여러 실험들을 진행했습니다.</p>
+<img style="max-width:500px;margin:0 auto;display:block" src="https://your-docusaurus-site.example.com/assets/images/experiment-22f56fddcf8aa9e775a737b75ac46343.jpg" alt="리뷰미팀이 실행한 실험 방법:질문 기획-팀 내 사용- 유저 테스트- 피드백 회의-질문 기획 순환">
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="실험-결과">실험 결과<a class="hash-link" aria-label="실험 결과에 대한 직접 링크" title="실험 결과에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/release-version-1.0.0#%EC%8B%A4%ED%97%98-%EA%B2%B0%EA%B3%BC">​</a></h3>
+<p>리뷰미팀은 실험들을 통해 사용자의 니즈를 파악했습니다. 이를 바탕으로 '감정 강화'를 리뷰 방향으로 결정했고, 이에 맞추어 질문지를 개선해나갔습니다.</p>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>🔖 결과 1. 실험을 통해서 도출해낸 것들</summary><div><div class="collapsibleContent_i85q"><div markdown="1"><ol><li><p>서비스의 1차 사용자 타깃인 우테코 크루들은 날카로운 리뷰보다는 긍정적이며
+부드러운 리뷰 작성을 선호한다.</p></li><li><p>사용자들은 날카로운 피드백이더라도, 자신에 대한 리뷰어(=리뷰를 작성하는
+사람)의 관심이 느껴지면 이를 긍정적으로 받아들인다.</p></li><li><p>사용자들은 리뷰가 정성스럽게 느껴질 때, 메타인지뿐만 아니라 팀워크가
+단단해지는 경험을 한다.</p></li><li><p>리뷰어는 리뷰 작성 시, 리뷰이(= 리뷰를 받는 사람) 과의 기억을 떠올리는 것에
+어려움을 느낀다.</p></li><li><p>리뷰어의 기억 회고 측면에서 서술형은 단점을 가지며, 이를 보안하기 위해 꼬리
+질문과 객관식 질문이 필요하다.</p></li><li><p>선택된 강점 문항이 리뷰이의 강점으로 특정 지어지기 위해서 또는 강점으로써의 신뢰도를 얻기 위해서 선택할 수 있는 강점의 개수를 제한해야 한다.</p></li><li><p>더 많은 리뷰를 작성하고자 하는 니즈를 위해, 추가 리뷰 작성란이 있어야 한다.</p></li><li><p>리뷰어의 리뷰 작성 부담을 줄여주기 위해, 질문 개수는 5개 이하여야 한다.</p></li><li><p>질문 목록을 한 번에 보여주는 것은 리뷰어의 부담감을 높이며 집중력을
+떨어뜨린다.</p></li></ol></div></div></div></details>
+<details class="details_lb9f alert alert--info details_b_Ee" data-collapsed="true"><summary>🔖 결과2.실험을 통해 개선한 질문지 형식</summary><div><div class="collapsibleContent_i85q"><div markdown="2"><ol><li>강점 강화라는 리뷰 방향에 맞추어서 질문지는 '~해요'체를 사용한다.</li><li><p>리뷰미 서비스는 리뷰어와 리뷰이를 이어주는 제3자 역할(=대신 리뷰를
+전해주는 역할)을 한다.</p></li><li><p>첫 질문은 리뷰어의 기억 회고를 도울 수 있는 질문으로 시작하며, 그다음
+질문은 이에 대한 심층적인 리뷰를 할 수 있는 꼬리 질문으로 나아간다.</p></li><li><p>리뷰어의 기억 회고 및 리뷰이의 강점을 선택하는 데 도움을 주기 위해
+객관식을 활용한다.</p></li><li><p>리뷰어가 선택한 리뷰이의 강점에 뒷받침이 되어줄 서술형 문답을 추가한다.</p></li><li><p>단점에 대한 피드백은 단점에서 끝내지 않고, 리뷰어가 리뷰이의 단점을 개선
+방법을 제시해 리뷰이의 '성장'을 함께 고민할 수 있도록 한다.</p></li><li><p>추가적인 리뷰나 응원 등의 전하고 싶은 말이 있는 리뷰어를 위한, 서술형
+문답을 추가한다. 단, 해당 문답은 선택형으로 리뷰어에게 선택권을 준다.</p></li><li><p>리뷰어의 리뷰 작성에 대한 부담감을 줄이고자 한 화면에 하나의 질문만
+나오는 캐러셀을 이용한 카드 형식을 사용한다.</p></li><li><p>리뷰 제출 전, 리뷰어가 자신이 작성한 리뷰를 확인할 수 있는 기능(ex
+모달)을 제공한다.</p></li></ol></div></div></div></details>
+<hr>
+<h1>리뷰미 version 1.0.0 소개</h1>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="시연-영상">시연 영상<a class="hash-link" aria-label="시연 영상에 대한 직접 링크" title="시연 영상에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/release-version-1.0.0#%EC%8B%9C%EC%97%B0-%EC%98%81%EC%83%81">​</a></h2>
+<div style="width:100%;display:flex;justify-content:center"><video width="600px" controls=""><source src="https://private-user-images.githubusercontent.com/69838872/361453327-709fbbd3-69e3-4b98-86ab-dda7ba28bd1a.mp4?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MjQ2ODA0NjksIm5iZiI6MTcyNDY4MDE2OSwicGF0aCI6Ii82OTgzODg3Mi8zNjE0NTMzMjctNzA5ZmJiZDMtNjllMy00Yjk4LTg2YWItZGRhN2JhMjhiZDFhLm1wND9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA4MjYlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwODI2VDEzNDkyOVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTI2M2JlZmFkNTM5NTliZmQzNWYyNWJjZDJkYzEwMzA5MjdhY2NhMDljNWE5ZTU2NjBkNzkxNzUxMjA0YjdjYWYmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.cvkjIa7PVsUNyvELU6taw-pW7mAfTH_rXq_2Ka79yhE" type="video/mp4" alt="리뷰미 version 1.0.0 시연 영상"></video></div>
+<h2 class="anchor anchorWithStickyNavbar_LWe7" id="기능-소개">기능 소개<a class="hash-link" aria-label="기능 소개에 대한 직접 링크" title="기능 소개에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/release-version-1.0.0#%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C">​</a></h2>
+<p>리뷰미 version 1.0.0은 리뷰를 받기 위한 url 생성, 리뷰 작성 및 받은 리뷰를 확인하는 기능을 제공하고 있습니다. 페이지별로 어떤 기능이 있는지 살펴보겠습니다.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="홈페이지---리뷰-url-생성">홈페이지 - 리뷰 url 생성<a class="hash-link" aria-label="홈페이지 - 리뷰 url 생성에 대한 직접 링크" title="홈페이지 - 리뷰 url 생성에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/release-version-1.0.0#%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80---%EB%A6%AC%EB%B7%B0-url-%EC%83%9D%EC%84%B1">​</a></h3>
+<img src="https://your-docusaurus-site.example.com/assets/images/home_page-1c0923571d461d4ed1333cf606240f4e.jpg" style="max-width:600px;margin:0 auto;display:block" alt="리뷰미 홈페이지">
+<br>
+<p>홈페이지는 리뷰미를 사용하는 방법에 대한 소개과 리뷰 url(= 리뷰 연결 페이지
+url)을 생성하는 폼(이하 리뷰 url 생성폼)을 제공합니다. 리뷰 url은 해당 리뷰에
+대한 고유한 url로, 리뷰를 받고자하는 사람에게 리뷰 url을 공유하면 됩니다.</p>
+<p>리뷰 url 생성폼에서 리뷰를 받는 사람 이름, 리뷰 받고자하는 프로젝트와 리뷰 확인 시 필요한 비밀번호를 입력합니다. 모든 입력이 유효한 경우 리뷰 url 생성 버튼이 활성화됩니다.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="리뷰-연결-페이지---리뷰-쓰기-및-리뷰-확인">리뷰 연결 페이지 - 리뷰 쓰기 및 리뷰 확인<a class="hash-link" aria-label="리뷰 연결 페이지 - 리뷰 쓰기 및 리뷰 확인에 대한 직접 링크" title="리뷰 연결 페이지 - 리뷰 쓰기 및 리뷰 확인에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/release-version-1.0.0#%EB%A6%AC%EB%B7%B0-%EC%97%B0%EA%B2%B0-%ED%8E%98%EC%9D%B4%EC%A7%80---%EB%A6%AC%EB%B7%B0-%EC%93%B0%EA%B8%B0-%EB%B0%8F-%EB%A6%AC%EB%B7%B0-%ED%99%95%EC%9D%B8">​</a></h3>
+<img src="https://your-docusaurus-site.example.com/assets/images/zone-dbd4f74c9e5b94dd89b0e52426f3ccd5.jpg" style="max-width:600px;margin:0 auto;display:block" alt="리뷰미 연결 페이지">
+<br>
+<p>비회원제인 리뷰미 서비스는 하나의 url을 통해 리뷰 쓰기와 확인하기를 할 수 있게하기위해, 리뷰 연결 페이지를 제공하고 있습니다.</p>
+<p>홈페이지에서 생성한 리뷰 url은 바로 리뷰 연결 페이지 주소입니다.
+리뷰 연결 페이지에는 리뷰 쓰기 버튼과 리뷰 확인하기 버튼이 있습니다. 리뷰쓰기 버튼을 클릭하면 리뷰 작성 페이지로 이동하고, 리뷰 확인하기 버튼을 클릭해 모달 창에서 올바른 비밀번호를 조회하면 리뷰 목록 페이지로 이동합니다.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="리뷰-작성-페이지---리뷰-쓰기">리뷰 작성 페이지 - 리뷰 쓰기<a class="hash-link" aria-label="리뷰 작성 페이지 - 리뷰 쓰기에 대한 직접 링크" title="리뷰 작성 페이지 - 리뷰 쓰기에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/release-version-1.0.0#%EB%A6%AC%EB%B7%B0-%EC%9E%91%EC%84%B1-%ED%8E%98%EC%9D%B4%EC%A7%80---%EB%A6%AC%EB%B7%B0-%EC%93%B0%EA%B8%B0">​</a></h3>
+<img src="https://your-docusaurus-site.example.com/assets/images/writing-3e5ed3a1d6787a47a14a4ab7373dff76.jpg" style="max-width:600px;margin:0 auto;display:block" alt="리뷰미 작성 페이지">
+<br>
+<p>리뷰 작성 페이지는 리뷰어가 리뷰를 남길 수 있는 페이지입니다. 리뷰어의 부담감을 줄이고 한 화면에 하나의 질문에 집중할 수 있도록 캐러셀을 활용한 카드 형식을 도입했습니다.</p>
+<p>리뷰어가 남은 질문과 현재까지 작성한 질문 현황을 확인할 수 있는 프로그래스바도 같이 제공하고 있습니다. 리뷰어는 프로그래스바를 통해 작성한 질문지로 이동할 수 있습니다.</p>
+<p>질문의 문답이 유효해 제출이 가능한 경우, 제출 전 확인과 제출 버튼이 활성화됩니다. 리뷰어는 제출 전 확인 버튼을 클릭해 본인이 작성한 내용을 확인할 수 있습니다.</p>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="리뷰-목록-상세-페이지">리뷰 목록, 상세 페이지<a class="hash-link" aria-label="리뷰 목록, 상세 페이지에 대한 직접 링크" title="리뷰 목록, 상세 페이지에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/release-version-1.0.0#%EB%A6%AC%EB%B7%B0-%EB%AA%A9%EB%A1%9D-%EC%83%81%EC%84%B8-%ED%8E%98%EC%9D%B4%EC%A7%80">​</a></h3>
+<img src="https://your-docusaurus-site.example.com/assets/images/review_view-b5a3549a1074bc1accb9ef3656e93a1c.jpg" style="max-width:600px;margin:0 auto;display:block" alt="리뷰미 목록, 상세페이지">
+<br>
+<p>리뷰 목록 페이지는 리뷰이가 받은 리뷰 목록을 제공합니다. 리뷰 목록 중 자세하게 보고 싶은 리뷰를 선택하면 해당 리뷰에 대한 상세 페이지로 이동합니다.</p>
+<hr>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="용어-정리">용어 정리<a class="hash-link" aria-label="용어 정리에 대한 직접 링크" title="용어 정리에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/release-version-1.0.0#%EC%9A%A9%EC%96%B4-%EC%A0%95%EB%A6%AC">​</a></h4>
+<ul>
+<li>리뷰어 : 리뷰를 작성하는 사람</li>
+<li>리뷰이 : 리뷰를 받는 사람</li>
+<li>리뷰 url : 리뷰 연결 페이지 url로, 해당 url로 들어오면 리뷰 작성과 확인이 가능.</li>
+<li>리뷰 url 생성폼: 리뷰 url을 생성하는 폼</li>
+</ul>]]></content>
+        <author>
+            <name>손해영 (바다)</name>
+            <uri>https://github.com/badahertz52</uri>
+        </author>
+        <category label="blog" term="blog"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[무엇이 좋은 도메인 설계인가?]]></title>
         <id>https://your-docusaurus-site.example.com/blog/domain-design</id>
@@ -17,7 +97,7 @@
 <p>프로젝트를 시작하고 3주 동안, 리뷰미는 3번의 도메인 구조 변경을 겪었습니다. 모든 구조는 우리 팀이 치열하게 고민한 끝에 나온 것들이었습니다. 그래서 바꾸는 것이 아쉽기도 했습니다. (자식같은 내 코드..) 하지만 분명한 필요성을 느껴 구조 변경을 했고, 그 과정에서 ‘좋은 설계란 무엇인가’에 대해 고민하게 되었습니다. 이 글에서는 리뷰미 서비스의 도메인 변천사와, ‘좋은 설계란 무엇인가?’에 대한 개인적 견해를 적어보려 합니다.</p>
 <hr>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="첫-번째-설계">첫 번째 설계<a class="hash-link" aria-label="첫 번째 설계에 대한 직접 링크" title="첫 번째 설계에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/domain-design#%EC%B2%AB-%EB%B2%88%EC%A7%B8-%EC%84%A4%EA%B3%84">​</a></h2>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="목표--핵심-기능을-빠르게-구현-">목표 : 핵심 기능을 빠르게 구현 ⏩<a class="hash-link" aria-label="목표 : 핵심 기능을 빠르게 구현 ⏩에 대한 직접 링크" title="목표 : 핵심 기능을 빠르게 구현 ⏩에 대한 직접 �링크" href="https://your-docusaurus-site.example.com/blog/domain-design#%EB%AA%A9%ED%91%9C--%ED%95%B5%EC%8B%AC-%EA%B8%B0%EB%8A%A5%EC%9D%84-%EB%B9%A0%EB%A5%B4%EA%B2%8C-%EA%B5%AC%ED%98%84-">​</a></h3>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="목표--핵심-기능을-빠르게-구현-">목표 : 핵심 기능을 빠르게 구현 ⏩<a class="hash-link" aria-label="목표 : 핵심 기능을 빠르게 구현 ⏩에 대한 직접 링크" title="목표 : 핵심 ��기능을 빠르게 구현 ⏩에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/domain-design#%EB%AA%A9%ED%91%9C--%ED%95%B5%EC%8B%AC-%EA%B8%B0%EB%8A%A5%EC%9D%84-%EB%B9%A0%EB%A5%B4%EA%B2%8C-%EA%B5%AC%ED%98%84-">​</a></h3>
 <p>우리 팀의 첫 목표는 핵심 기능을 빠르게 구현하는 것이었습니다.
 따라서 ‘리뷰를 작성하는 기능’과 ‘리뷰를 보는 기능’을 빨리 구현하기 위한 설계를 했습니다.
 기능을 빠르게 구현하기 위해 우리 팀은 아래 기준으로 설계를 했습니다.</p>
@@ -123,7 +203,7 @@ ERD를 먼저 설계하자는 의견은 저의 의견이었습니다.
 <strong>'변경에 유연한지'가 더 중요한 기준</strong>이라는 결론을 내리게 되었습니다.</p>
 <hr>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="세번째-설계">세번째 설계<a class="hash-link" aria-label="세번째 설계에 대한 직접 링크" title="세번째 설계에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/domain-design#%EC%84%B8%EB%B2%88%EC%A7%B8-%EC%84%A4%EA%B3%84">​</a></h2>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="목표--변경에-유연한-구조-">목표 : 변경에 유연한 구조 🌊<a class="hash-link" aria-label="목표 : 변경에 유연한 구조 🌊에 대한 직접 링크" title="목표 : 변경에 유연한 구조 🌊에 대한 직접 �링크" href="https://your-docusaurus-site.example.com/blog/domain-design#%EB%AA%A9%ED%91%9C--%EB%B3%80%EA%B2%BD%EC%97%90-%EC%9C%A0%EC%97%B0%ED%95%9C-%EA%B5%AC%EC%A1%B0-">​</a></h3>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="목표--변경에-유연한-구조-">목표 : 변경에 유연한 구조 🌊<a class="hash-link" aria-label="목표 : 변경에 유연한 구조 🌊에 대한 직접 링크" title="목표 : 변경에 유연한 구조 🌊에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/domain-design#%EB%AA%A9%ED%91%9C--%EB%B3%80%EA%B2%BD%EC%97%90-%EC%9C%A0%EC%97%B0%ED%95%9C-%EA%B5%AC%EC%A1%B0-">​</a></h3>
 <p>우리 팀은 ‘변경에 유연한 구조’를 최상위 기준으로 두며 세번째 설계를 했습니다.
 그리고 이를 위해 세가지 큰 변화를 주었습니다.
 (이 과정에서 <a href="https://www.youtube.com/watch?v=dJ5C4qRqAgA" target="_blank" rel="noopener noreferrer">우아한 객체지향</a>이라는 동영상을 많이 참고했습니다🙇🏻‍♀️)</p>
@@ -319,7 +399,7 @@ BasicErrorController에서 예외가 핸들링되는 것을 확인할 수 있었
 @ExceptionHandler는 예외 응답의 코드와 <strong>메세지를 자유롭게 설정</strong>할 수 있다는 장점이 있습니다.
 @ExceptionHandler는 컨트롤러의 메서드에 바로 사용할 수도 있으며, @ControllerAdvice나 @RestControllerAdvice가 있는 클래스의 메소드에도 사용할 수 있습니다.
 만약 컨트롤러의 메서드에도 @ExceptionHandler를 사용하고, @ControllerAdvice에도 사용한다면 전자가 우선시됩니다.</p>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="스프링-내부의-기본-예외들">스프링 내부의 기본 예외들<a class="hash-link" aria-label="스프링 내부의 기본 예외들에 대한 직접 링크" title="스프링 내부의 기본 예��외들에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/exception-response#%EC%8A%A4%ED%94%84%EB%A7%81-%EB%82%B4%EB%B6%80%EC%9D%98-%EA%B8%B0%EB%B3%B8-%EC%98%88%EC%99%B8%EB%93%A4">​</a></h3>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="스프링-내부의-기본-예외들">스프링 내부의 기본 예외들<a class="hash-link" aria-label="스프링 내부의 기본 예외들에 대한 직접 링크" title="스프링 내부의 기본 예외들에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/exception-response#%EC%8A%A4%ED%94%84%EB%A7%81-%EB%82%B4%EB%B6%80%EC%9D%98-%EA%B8%B0%EB%B3%B8-%EC%98%88%EC%99%B8%EB%93%A4">​</a></h3>
 <p>스프링에서 발생할 수 있는 기본 예외들은 미리 정의되어, <strong>DefaultHandler ExceptionResolver</strong>에서 처리됩니다.
 대표적인 예외로는 지원하지 않는 HttpMethod 로 요청을 보낼 때 발생하는 HttpRequestMethod NotSupportedException가 있습니다.
 DefaultHandler ExceptionResolver는 에러를 핸들링해서 어떤 기본 예외인지 판별하는 역할까지만 하므로, 직접 예외 응답을 반환하지는 않습니다.
