@@ -48,7 +48,7 @@
 <h1>리뷰미 version 1.0.0 소개</h1>
 <p><a href="https://review-me.page/" target="_blank" rel="noopener noreferrer">🌟 리뷰미 배포 사이트 바로가기</a></p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="시연-영상">시연 영상<a class="hash-link" aria-label="시연 영상에 대한 직접 링크" title="시연 영상에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/release-version-1.0.0#%EC%8B%9C%EC%97%B0-%EC%98%81%EC%83%81">​</a></h2>
-<video width="600px" controls=""><source src="/assets/medias/version1-ff0d836ea5d5fa01b28ceacbe1189743.mp4" type="video/mp4" alt="리뷰미 version 1.0.0 시연 영상"></video>
+<video width="600px" controls=""><source src="/assets/medias/version1-209e612b283213a68d2b695c88b1080d.mp4" type="video/mp4" alt="리뷰미 version 1.0.0 시연 영상"></video>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="기능-소개">기능 소개<a class="hash-link" aria-label="기능 소개에 대한 직접 링크" title="기능 소개에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/release-version-1.0.0#%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C">​</a></h2>
 <p>리뷰미 version 1.0.0은 리뷰를 받기 위한 url 생성, 리뷰 작성 및 받은 리뷰를 확인하는 기능을 제공하고 있습니다. 페이지별로 어떤 기능이 있는지 살펴보겠습니다.</p>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="홈페이지---리뷰-url-생성">홈페이지 - 리뷰 url 생성<a class="hash-link" aria-label="홈페이지 - 리뷰 url 생성에 대한 직접 링크" title="홈페이지 - 리뷰 url 생성에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/release-version-1.0.0#%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80---%EB%A6%AC%EB%B7%B0-url-%EC%83%9D%EC%84%B1">​</a></h3>
