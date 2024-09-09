@@ -1,0 +1,226 @@
+---
+slug: versioning-nginx
+title: Nginx 설정 형상관리하기
+authors: [donghoony]
+tags: [blog, infra]
+---
+
+이전의 리뷰미는 nginx 설정을 바꾸기 위해 직접 인스턴스에 접속해야 했습니다.
+또, 개발 서버와 운영 서버와의 nginx 설정도 서로 달랐습니다.
+현재는 GitHub에 `.conf`와 `docker-compose.yml` 파일을 관리하고 있고, 해당 부분의 변경 사항이 인스턴스에 전파됩니다.
+이 글에서는 서로 다른 nginx 설정 정보를 어떻게 통합했는지에 대해서 다룹니다.
+
+## 🤨 서로 다른 환경 설정
+운영 서버와 개발 서버로 분리되는 순간 관리해야 하는 부분이 하나 더 생기게 됩니다.
+인스턴스가 최소 한 개 추가되기도 하고, 여러 이유들로 인해 인프라에 작업을 해 두었다면 더욱 그렇겠죠.
+리뷰미도 https 통신을 위해 nginx를 사용하고 있었고, 개발 서버와 운영 서버에 각각 설치돼 있었습니다.
+
+관리 포인트가 많아진다는 것은 결국 한 번의 수정이 곧 두 번의 수정이라는 의미입니다.
+개발 서버에서 충분한 테스트 후 운영 서버로 반영해야 할 때에는, 어떤 부분이 수정되었는지 다시 비교해보아야 해요.
+이 과정에서 실수할 수 있는 것은 분명하거니와 실수하더라도 빠르게 바로잡을 수 없었습니다.
+
+가만 봅시다. **이거 어디에서 많이 본 상황 아닌가요?**
+
+처음 프로젝트를 시작하고 얼마 안 돼 같은 일을 겪었습니다.
+빌드하고, `.jar` 파일을 만들고, 이를 인스턴스로 옮겨 `java -jar` 명령어를 통해 서버를 실행하기까지.
+불편함은 오류를 회복하는 시간을 더디게 만들었고 효율적인 업무에 방해가 될 뿐이었습니다.
+이를 해결하기 위해 CD 자동화를 진행했어요. 실행 파일을 빌드하는 것부터 실제 서버에 업로드 및 실행하는 것을 빠르게 확인할 수 있었습니다.
+
+일련의 과정들을 인프라에도 적용할 수 있지 않을까요?
+
+## 🕸️ nginx를 Git으로 관리하라고요?
+네, 이제는 nginx의 설정 파일을 Git으로 관리하려고 합니다.
+실제로 nginx에서 우리의 설정은 `nginx.conf`와 `/conf.d` 하위의 파일들만 관리되고 있었어요.
+추가적으로 Https를 위한 인증서 키가 `/cert` 디렉토리에 존재합니다만, 인증서는 이 글에서는 다루지 않습니다.
+
+그렇다면 우리가 관리해야 하는 것은 `nginx.conf`, `/conf.d` 하위 파일들, 그리고 `docker-compose.yml`이 되겠습니다. 도커를 활용한 것은 운영-개발 서버의 환경 차이를 최대한 줄이기 위함이었지만, 개발 서버에서 이것저것 실험해 보면서 운영 서버와는 다른 환경이 되어버렸어요. 이 차이를 줄이기 위해서라도 `docker-compose` 또한 버전 관리를 해야할 필요성을 느꼈습니다.
+
+`docker-compose`에서는 포트 바인딩, 모니터링을 위한 exporter, 네트워크 정보가 포함돼 있습니다. 내부 설정에 필요한 부분과 로깅은 모두 호스트와 볼륨 매핑돼 있으므로, `down`, `up`을 진행하더라도 중요한 데이터는 손실되지 않습니다. 이 파일은 그대로 Git에 업로드되어도 괜찮겠네요!
+
+:::warning
+기본적으로 **Private repository**에 업로드되는 것을 원칙으로 합니다.<br/>
+Public에 업로드하는 경우 **Actions secret**으로 대부분의 정보를 공개하지 않을 것을 권장합니다.
+:::
+
+```yaml title="docker-compose.yml"
+services:
+  nginx:
+    container_name: nginx
+    image: nginx:stable-alpine3.20
+    restart: always
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./logs:/var/log/nginx
+      - ./conf.d:/etc/nginx/conf.d
+      - ./cert:/etc/nginx/cert
+    ports:
+      # ...
+
+  nginx_exporter:
+    container_name: nginx_exporter
+    depends_on:
+      - nginx
+    image: nginx/nginx-prometheus-exporter:1.3.0
+    # ...
+
+networks:
+  # ...
+```
+
+nginx 설정 파일에는 운영 서버와 개발 서버가 서로 다르게 적혀야하는 부분이 있습니다. IP/Port와 같은 `upstream` 정보와 `server_name`이예요. `app-dev.conf`, `app-prod.conf`와 같이 두 개의 파일로 관리해야 할까요? 저희는 관리 포인트가 늘어나는 것이 싫어서 여러 방법을 찾아 보았어요.
+```nginx configuration title="conf.d/app.conf"
+upstream app {
+    // highlight-next-line
+    server 10.1.2.3:8080; # 개발 서버와 운영 서버와의 IP와 포트가 다릅니다
+}
+
+server {
+    listen 80;
+    // highlight-next-line
+    server_name your-domain.here.com;
+    # https 리다이렉션..
+}
+
+server {
+    listen 443 ssl;
+    // highlight-next-line
+    server_name your-domain.here.com;
+    # 인증서, 리버스 프록싱 설정..
+}
+```
+
+리눅스에서는 `envsubst`라는 함수를 제공합니다. `environment variable substitution`, 환경 변수 치환이예요. 문자열을 제공한 뒤, 리눅스 내 환경 변수가 존재한다면 해당 내용으로 치환합니다. 이때, `${VAR_NAME}`와 같은 형태로 제공해야 해요.
+
+그렇다면 환경 변수에 서버와 도메인 정보를 미리 넣어둔 뒤, 설정 파일에 치환할 변수를 추가한다면 어떨까요? 아래와 같은 모습이 되겠습니다. 환경 변수를 어떻게 설정할지는 GitHub Actions에서 다시 설명드리도록 할게요!
+```nginx configuration title="conf.d/app.conf"
+upstream app {
+// highlight-next-line
+    server ${UPSTREAM_URL};
+}
+
+server {
+    listen 80;
+    // highlight-next-line
+    server_name ${SERVER_URL};
+}
+
+server {
+  listen 443 ssl;
+  // highlight-next-line
+  server_name ${SERVER_URL};
+}
+```
+
+## 🔥 자동화 스크립트 작성
+이제는 모든 것이 Git으로 관리되고 있고, 변경 사항을 인스턴스에 적용하면 됩니다. CI/CD를 적용했을 때처럼, GitHub Actions를 활용해 인스턴스에 반영해 봅시다. 디렉토리 구조는 아래와 같습니다.
+```
+🗂️ nginx
+ ∟ 🗂️ conf.d
+     ∟ ⬢ app.conf
+    🐳 docker-compose.yml
+    ⬢ nginx.conf
+```
+
+### 변경 사항에 따라 다르게 적용하기
+몇 가지 따져봐야 할 것이 있습니다. 다음과 같이 두 가지 경우로 나뉘는데요,
+- `docker-compose`가 변경되는 경우
+- `.conf` 파일만 변경되는 경우
+
+전자의 경우 컨테이너를 다시 띄워야 하겠지만, 후자의 경우에는 nginx에게 새로고침 명령만 내리면 됩니다. 다른 말로 하자면 `.conf`만 변경되었을 때 컨테이너가 다시 띄워질 필요가 없다는 의미입니다. 이를 어떻게 판단할 수 있을까요?
+
+우선 workflow가 돌아가기 위해 `/nginx` 아래 파일이 바뀌어야 한다는 전제가 있습니다. 아래 규칙을 지킨다면, 비교적 간단하게 해결할 수 있습니다.
+- PR을 통해 Squash and merge를 진행할 것
+
+Squash and merge를 진행하게 되면 변경 이력이 하나의 커밋으로 바뀌게 됩니다. 직전 커밋과 Squash된 현재 커밋을 비교해 `docker-compose.yml`이 존재하는지 찾아보는 것도 하나의 방법입니다. 해당 규칙을 사용하지 않고 다양한 방법을 활용해 변경사항을 찾아낼 수도 있겠지만, 저희가 찾은 효율적인 방법 중 하나라 사용하게 되었어요.
+
+`git diff HEAD^ HEAD`를 통해 `HEAD`의 부모 커밋과 `HEAD` 커밋을 비교할 수 있습니다. `--name-only` 옵션을 사용하면 변경된 파일만을 확인할 수 있죠. 이를 `grep`을 통해 받아내 봅시다. 해당 값이 존재한다면 `docker-compose` 설정이 변경된 것이고, 그렇지 않다면 `.conf`만이 변경되었겠죠?
+
+:::info
+GitHub Actions의 `actions/checkout@v4`를 활용한다면, `fetch-depth`가 기본으로 1이라 가장 최근 커밋만을 불러오게 됩니다. `HEAD`와 그 부모 커밋을 비교하기 위해서는 최소 **2 이상의 값**으로 설정해야 합니다.
+:::
+
+### 브랜치에 따라 다른 인스턴스에 적용하기
+한 가지 더 신경써야할 점이 있습니다. 바로 개발 서버와 운영 서버가 분리되어있다는 점이예요. Actions가 개발 서버에만 붙어있다면 위쪽에서 `envsubst`를 할 이유도 없습니다. 다양한 서버에 적절하게 값을 주입하고 설정을 적용해야 했기에, 보다 유연하게 작성해야 해요.
+
+개발 서버와 운영 서버에 변동이 일어났음을 어떻게 알 수 있을까요? 저희는 브랜치 이름에 따라 이를 분기했습니다. `runs-on`을 알아내기 위해 우선 브랜치 이름을 가져오고, 이를 기반으로 `job`이 돌아갈 러너를 선택하도록 했어요. `outputs`를 통해 각 `step`에서 `$GITHUB_OUTPUT`으로 쓰인 값들을 서로 공유할 수 있습니다. 자세한 내용은 [**이곳**](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/passing-information-between-jobs)을 확인해주세요!
+
+## 🔍 결과 스크립트와 앞으로의 숙제
+최종적으로 아래와 같은 스크립트가 만들어집니다. 이제 nginx 설정을 위해 인스턴스에 터미널로 접속하던 시절은 안녕. 보다 안전하고 깔끔하게, 한 곳의 변화로 모든 곳에 적용할 수 있는 제반이 마련되었습니다. 저희 목표는 언젠가 모든 인프라를 터미널을 들어가지 않고 관리하는 것이예요. 꾸준하게 불편한 것을 밖에서 쉽게 적용하도록 하면 언젠가 할 수 있지 않을까요? 😋
+
+```yaml showLineNumbers title=".github/workflows/nginx.yml"
+name: 'Configure nginx'
+
+on:
+  push:
+    branches:
+      - develop
+      - release
+    paths:
+      - 'nginx/**'
+  workflow_dispatch:
+
+env:
+  WORKING_DIRECTORY: '/home/ubuntu/nginx'
+  DEV_SERVER_URL: 'develop-domain.com'
+  DEV_UPSTREAM_URL: '1.2.3.4:8080'
+  PROD_SERVER_URL: 'production-domain.com'
+  PROD_UPSTREAM_URL: '5.6.7.8:8082'
+
+jobs:
+  select-environment:
+    runs-on: ubuntu-latest
+    outputs:
+      instance: ${{ steps.set-env.outputs.instance }}
+    steps:
+      - name: Select instance
+        id: set-env
+        run: |
+          if [[ '${{ github.ref }}' = 'refs/heads/release' ]]; then
+            echo "instance=prod" >> "$GITHUB_OUTPUT"
+          else
+            echo "instance=dev" >> "$GITHUB_OUTPUT"
+          fi
+
+  configure-nginx:
+    needs: select-environment
+    runs-on: ${{ needs.select-environment.outputs.instance }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Set environment variables
+        run: |
+          if [[ '${{ github.ref }}' = 'refs/heads/release' ]]; then
+            echo 'Setting prod environment variables'
+            echo 'SERVER_URL=${{ env.PROD_SERVER_URL }}' >> $GITHUB_ENV
+            echo 'UPSTREAM_URL=${{ env.PROD_UPSTREAM_URL }}' >> $GITHUB_ENV
+          else
+            echo 'Setting dev environment variables'
+            echo 'SERVER_URL=${{ env.DEV_SERVER_URL }}' >> $GITHUB_ENV
+            echo 'UPSTREAM_URL=${{ env.DEV_UPSTREAM_URL }}' >> $GITHUB_ENV
+          fi
+
+      - name: Replace variables using envsubst
+        run: |
+          cat ./nginx/conf.d/app.conf | envsubst '${SERVER_URL},${UPSTREAM_URL}' > ./nginx/conf.d/app.conf.tmp
+          mv ./nginx/conf.d/app.conf.tmp ./nginx/conf.d/app.conf
+
+      - name: Copy nginx configuration files
+        run: cp -r ./nginx/* ${{ env.WORKING_DIRECTORY }}
+
+      - name: Restart docker if docker-compose has changed, else reload nginx
+        run: |
+          if [[ -n $(git diff --name-only HEAD^ HEAD | grep 'docker-compose.yml') ]]; then
+            cd ${{ env.WORKING_DIRECTORY }}
+            sudo docker-compose down || true
+            sudo docker-compose up -d
+            echo 'Docker restarted'
+          else
+            sudo docker exec nginx nginx -s reload
+            echo 'Nginx reloaded'
+          fi
+```
+
+여전히 해결해야 할 과제는 남아 있습니다. 각각의 `.conf` 파일과 `docker-compose.yml` 파일이 올바른 문법을 갖추고 있는지 확인할 방법이 필요합니다. `nginx -t`를 통해 설정 파일 문법을 확인해야 하는데, 이 부분을 조금 더 공부해보아야겠습니다.
