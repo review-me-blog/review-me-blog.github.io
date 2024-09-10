@@ -89,7 +89,7 @@ server {
 }
 ```
 
-리눅스에서는 `envsubst`라는 함수를 제공합니다. `environment variable substitution`, 환경 변수 치환이예요. 문자열을 제공한 뒤, 리눅스 내 환경 변수가 존재한다면 해당 내용으로 치환합니다. 이때, `${VAR_NAME}`와 같은 형태로 제공해야 해요.
+리눅스에서는 `envsubst`라는 프로그램을 제공합니다. `environment variable substitution`, 환경 변수 치환이예요. 문자열을 제공한 뒤, 리눅스 내 환경 변수가 존재한다면 해당 내용으로 치환합니다. 이때, `${VAR_NAME}`와 같은 형태로 제공해야 해요.
 
 그렇다면 환경 변수에 서버와 도메인 정보를 미리 넣어둔 뒤, 설정 파일에 치환할 변수를 추가한다면 어떨까요? 아래와 같은 모습이 되겠습니다. 환경 변수를 어떻게 설정할지는 GitHub Actions에서 다시 설명드리도록 할게요!
 ```nginx configuration title="conf.d/app.conf"
@@ -126,14 +126,27 @@ server {
 - `docker-compose`가 변경되는 경우
 - `.conf` 파일만 변경되는 경우
 
-전자의 경우 컨테이너를 다시 띄워야 하겠지만, 후자의 경우에는 nginx에게 새로고침 명령만 내리면 됩니다. 다른 말로 하자면 `.conf`만 변경되었을 때 컨테이너가 다시 띄워질 필요가 없다는 의미입니다. 이를 어떻게 판단할 수 있을까요?
+전자의 경우 컨테이너를 다시 띄워야 하겠지만, 후자의 경우에는 nginx에게 새로고침 명령만 내리면 됩니다. 즉 `.conf`만 변경되었을 때 컨테이너가 다시 띄워질 필요가 없다는 의미입니다. 이를 어떻게 판단할 수 있을까요?
 
-우선 workflow가 돌아가기 위해 `/nginx` 아래 파일이 바뀌어야 한다는 전제가 있습니다. 아래 규칙을 지킨다면, 비교적 간단하게 해결할 수 있습니다.
-- PR을 통해 Squash and merge를 진행할 것
+우선 workflow가 돌아가기 위해 `/nginx` 아래 파일이 바뀌어야 한다는 전제가 있습니다. 해당 스크립트가 돌아간다는 의미는 `/nginx` 내부에 변경이 일어났다는 것과 같아요.
+그렇다면 커밋 이력에서 `docker-compose.yml`이 변경되었는지만 확인하면 되지 않을까요?
 
-Squash and merge를 진행하게 되면 변경 이력이 하나의 커밋으로 바뀌게 됩니다. 직전 커밋과 Squash된 현재 커밋을 비교해 `docker-compose.yml`이 존재하는지 찾아보는 것도 하나의 방법입니다. 해당 규칙을 사용하지 않고 다양한 방법을 활용해 변경사항을 찾아낼 수도 있겠지만, 저희가 찾은 효율적인 방법 중 하나라 사용하게 되었어요.
+`actions/checkout@v4`에서는 workflow를 실행하게 한 브랜치를 가져옵니다. 이를 활용해 이전 커밋과 현재 커밋을 비교해 봅시다. 브랜칭 전략을 조금 활용한다면 문제를 해결할 수 있어요.
+
+PR을 통해 Squash and merge를 진행하게 되면 변경 이력이 하나의 커밋으로 바뀌게 됩니다. 직전 커밋과 Squash된 현재 커밋을 비교해 `docker-compose.yml`이 존재하는지 찾아보는 것도 하나의 방법입니다. 굳이 Squash and merge를 사용하는 방식은 아래와 같은 상황에서 `docker-compose.yml`의 변경 사항을 눈치채지 못하기 때문이예요.
 
 `git diff HEAD^ HEAD`를 통해 `HEAD`의 부모 커밋과 `HEAD` 커밋을 비교할 수 있습니다. `--name-only` 옵션을 사용하면 변경된 파일만을 확인할 수 있죠. 이를 `grep`을 통해 받아내 봅시다. 해당 값이 존재한다면 `docker-compose` 설정이 변경된 것이고, 그렇지 않다면 `.conf`만이 변경되었겠죠?
+
+```
+# Merge commit이 진행되는 경우, HEAD^에 비해 HEAD에 변경된 것은 nginx.conf 뿐이다.
+HEAD  | commit ab92d1: modified nginx.conf
+HEAD^ | commit bbacf6: modified docker-compose.yml
+---
+# Squash and merge가 진행되는 경우
+HEAD  | commit f0139c: modified nginx.conf, conf.d/app.conf, docker-compose.yml
+HEAD^ | commit facc24: modified nginx.conf (이전 Squash and merge 커밋)
+```
+해당 규칙을 사용하지 않고 다양한 방법을 활용해 변경사항을 찾아낼 수도 있겠지만, 저희가 찾은 효율적인 방법 중 하나라 사용하게 되었어요.
 
 :::info
 GitHub Actions의 `actions/checkout@v4`를 활용한다면, `fetch-depth`가 기본으로 1이라 가장 최근 커밋만을 불러오게 됩니다. `HEAD`와 그 부모 커밋을 비교하기 위해서는 최소 **2 이상의 값**으로 설정해야 합니다.
