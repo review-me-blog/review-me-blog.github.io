@@ -1,0 +1,124 @@
+---
+slug: fe-error-handleing
+title: 프론트 엔드의 에러 핸들링 전략
+authors: [badahertz52]
+tags: [blog]
+---
+
+import ErrorPageImage from "./image/errorPage.png";
+import ErrorModalImage from "./image/errorModal.png";
+import ErrorSectionImage from "./image/errorSection.png";
+import PasswordErrorImage from "./image/passwordError.png";
+
+---
+
+## 에러 핸들링 전략의 필요성
+
+오류는 UX에 치명적이며, 개발자는 오류 메세지를 통해 어떤 오류인지 파악할 수 있어 중요합니다. 여러 개발자들이 작업을 하고 있기 때문에 같은 API 응답 코드(status code)여도 다른 오류 메세지를 던지거나, 다른 형태로 오류 관련된 UI(예: 누군가는 모달로 오류 메세지를 띄우고, 누군가는 오류 페이지로 이동하는 방식)를 구현할 수 있습니다.
+
+각기 다른 오류 메시지와 UI는 사용자와 개발자 모두에게 혼란을 줄 수 있습니다. 그래서 UX 측면에서는 사용자에게 어떤 오류인지 통일되고 명확하게 안내하고, 그에 따라 사용자 행동을 유도할 수 있습니다. 또한, DX 측면에서는 개발자가 오류를 쉽게 파악해 디버깅이 용이하도록 하기 위해, 리뷰미 프론트엔드 팀만의 에러 핸들링 전략을 세웠습니다.
+
+### 에러 핸들링 전략
+
+| 오류 종류         | 오류 발생 상황                                                                                                                                              | 대응 전략                                            | 오류 케이스 예시                                                                                                                                                                                                                      |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| API 요청 오류     | 화면에 영향이 있는 경우                                                                                                                                     | ErrorSection, ErrorPage                              | <ul><li>잘못된 리뷰 요청 코드로 데이터를 불러와서 페이지를 렌더링 하는 경우</li><li>네트워크 문제나 서버가 다운되어서 응답을 받지 못하는 경우</li><li>클라이언트 측에서 설장한 타임아웃이 초과</li><li>DNS,CORS에 의한 오류</li></ul> |
+| API 요청 오류     | <ul><li>사용자와 상호 작용하고 있어서 현재 컴포넌트를 언마운트 시키며 안되는 경우(=상태 유지 필요)</li><li>데이터 유무가 화면에 영향이 없는 경우 </li></ul> | Error Modal(모달의 형태는 케이스에 맞는 것으로),text | <ul><li>비밀 번호 조회 실패</li><li>작성한 리뷰 제출 실패 시</li></ul>                                                                                                                                                                |
+| 배포 사이트 오류  | <ul><li>배포 사이트가 다운된 경우</li><li>파일 경로를 찾을 수 없는 경우</li></ul>                                                                           | AWS의 error.html 사용, 403오류 시 index.html 사용    |
+| 클라이언트단 오류 | js 오류                                                                                                                                                     | console.error                                        | <ul><li>element를 찾을 수 없는 경우</li><li>type 불일치로 인한 오류</li></ul>                                                                                                                                                         |
+
+## API 요청 오류 시, 응답 status별 오류 메세지
+
+오류 메세지는 크게 서버단 오류인 500대 에러와 클라이언트 단 오류인 400번대로 나누고, 400번대 오류를 좀 더 세분화해서 다뤘습니다.
+
+### response status에 따라 일관된 오류 메세지를 반환하는 유틸 함수
+
+```ts
+const createApiErrorMessage = (statusCode: number) => {
+  //500대 서버 api 오류
+  const isServerError = SERVER_ERROR_REGEX.test(statusCode.toString());
+  if (isServerError) return API_ERROR_MESSAGE.serverError;
+  // 400번대 오류
+  if (statusCode in API_ERROR_MESSAGE) return API_ERROR_MESSAGE[statusCode];
+};
+```
+
+### 오류 메세지
+
+```ts
+export const API_ERROR_MESSAGE: ApiErrorMessage = {
+  400: "잘못된 요청이에요",
+  401: "인증을 실패했어요",
+  403: "요청권한이 없어요",
+  404: "요청하신 내용을 찾을 수 없어요",
+  422: "올바르지 않은 데이터 형식이에요",
+  serverError: "서버 오류가 발생했어요",
+};
+```
+
+## Error 컴포넌트
+
+오류 발생 시, 사용자가 만나는 UI는 크게 ErrorPage, ErrorSection,ErrorModal, 오류 메세지만 표시하는 text로 나뉩니다.
+
+### ErrorPage
+
+Router오류 처럼 오류가 페이지 전체에 영향이 있을 경우, ErrorPage를 사용하고 있습니다.
+ErrorPage에서 ErrorSection을 사용해 코드 중복을 줄이고, 사용자에게 일관된 오류 UI를 제공합니다.
+
+**◾ Router 오류 시 ErrorPage**
+
+<img
+  style={{ maxWidth: "600px", margin: "0 auto", display: "block" }}
+  src={ErrorPageImage}
+  alt="Router 오류 시 보이는 ErrorPage 이미지"
+/>
+
+### ErrorModal, ErrorSection
+
+React Query를 사용한 API 요청 실패 시 QueryErrorResetBoundary가 오류를 감지합니다. 그리고 ErrorBoundary의 fallback으로 지정한 ErrorModal 또는 ErrorSection이 마운트됩니다.
+
+API 요청 실패가 현재 화면에 끼치는 영향에 따라 ErrorModal 또는ErrorSection을 사용할 지 판단하고 있습니다.
+
+#### ErrorSection
+
+페이지가 렌더링될 때 데이터를 불러와 화면을 그려야하는 경우에는 데이터를 불러오는 동안 화면에 로딩을 보여줘야하기 때문에, Suspense와 함께 ErrorBoundary의 fallback으로 ErrorSection이 적용된 `ErrorSuspenseContainer`컴포넌트를 구현해 사용하고 있습니다.
+
+**◾ 잘못된 API 요청으로 인해 데이터를 받지 못하는 경우 ErrorSection**
+
+<img
+  style={{ maxWidth: "600px", margin: "0 auto", display: "block" }}
+  src={ErrorSectionImage}
+  alt="리뷰 제출 실패 시 나오는 ErrorModal"
+/>
+
+#### ErrorModal
+
+API 요청 실패가 화면에 영향을 주지 않은 경우, 오류 메세지를 표시할 필요가 없으면 ErrorModal을 사용합니다.
+
+**◾리뷰 제출 실패 시 ErrorModal**
+
+<img
+  style={{ maxWidth: "600px", margin: "0 auto", display: "block" }}
+  src={ErrorModalImage}
+  alt="리뷰 제출 실패 시 나오는 ErrorModal"
+/>
+
+### text
+
+API 요청 실패 시, 단순히 오류 메세지를 띄워야 하며 현재 화면에 영향을 주면 안되는 경우에는 string 타입의 오류 메세지를 화면에 표시하고 있습니다.
+
+**◾유효하지 않은 비밀 번호 조회 시, 오류 메세지**
+
+<img
+  style={{ maxWidth: "600px", margin: "0 auto", display: "block" }}
+  src={PasswordErrorImage}
+  alt="리뷰 제출 실패 시 나오는 ErrorModal"
+/>
+
+## console.error
+
+js오류처럼 사용자에게 오류 메세지를 보여줄 필요가 없다면, console.error로 콘솔에만 오류를 표시하기로 했다.
+
+#### 참고자료
+
+- [카카오의 API 공통 가이드- 응답 코드 및 에러 코드](https://shopping-developers.kakao.com/hc/ko/articles/4578818403343-%EC%9D%91%EB%8B%B5-%EC%BD%94%EB%93%9C-%EB%B0%8F-%EC%97%90%EB%9F%AC-%EC%BD%94%EB%93%9C)
