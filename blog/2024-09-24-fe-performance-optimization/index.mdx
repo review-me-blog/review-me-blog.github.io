@@ -10,6 +10,7 @@ import PretendardBeforeImage from "./image/pretendard_before.png";
 import PretendardAfterImage from "./image/pretendard_after.png";
 import FrameDropBeforeImage from "./image/frame_drop_before.png";
 import FrameDropAfterImage from "./image/frame_drop_after.png";
+import CacheImage from "./image/cache.jpeg";
 
 ## 성능 개선 이유
 
@@ -62,7 +63,14 @@ import FrameDropAfterImage from "./image/frame_drop_after.png";
 
 ## 성능 최적화
 
-이미 CloudFront에서 제공하는 CDN 캐시와 브라우저 캐시를 사용하고 있기 때문에, 캐시와 CDN을 통한 최적화를 추가로 진행하지 않았습니다.
+#### 캐시 사용
+
+CloudFront에서 `Managed-CachingOptimized`캐시 정책을 사용하고 있습니다. `Managed-CachingOptimized` 캐시 정책을 사용하면 CloudFront는 기본 TTL(하루)을 설정하고 브라우저가 캐시를 받을 수 있도록 합니다. 브라우저는 CloudFront에서 설정된 캐시 정책에 따라 파일을 캐시하며, 기본적으로 하루 동안 캐시된 콘텐츠를 사용합니다. 캐시 정책관련 프론트 회의에서 현재 변경 사항이 많은 단계이기 때문에, 캐시 시간을 더 늘이기 보다는 현재 사용하고 있는 CloudFront에서 제공하는 기본 TTL 시간인 하루를 유지하기로 했습니다. 그래서
+추가적인 캐시 작업은 진행하지 않았습니다.
+
+<p align="center">
+  <img src={CacheImage} alt="CDN캐시 적용된 모습" width="400" />
+</p>
 
 ### JS 최적화
 
@@ -149,6 +157,7 @@ svgo로 최적화를 진행한 후, Brotli로 압축하는 과정을 거쳐 한 
 | 폰트 총 리소스 용량     | 2.4 MB                                                                                                                 | 209 KB                                                                                                                |
 | DOMContentLoaded        | 1.60s                                                                                                                  | 216ms                                                                                                                 |
 | Load                    | 1.60s                                                                                                                  | 744ms                                                                                                                 |
+| Waterfall에서 로딩 속도 | <p align="center"><img src={PretendardBeforeImage} alt="프리덴다드 가변 다이나믹 서브셋 적용 전" loading="lazy" /></p> | <p align="center"><img src={PretendardAfterImage} alt="프리덴다드 가변 다이나믹 서브셋 적용 후" loading="lazy" /></p> |
 
 ### 캐러셀 애니메이션 최적화 및 불필요한 렌더링 개선
 
