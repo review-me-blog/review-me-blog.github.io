@@ -94,13 +94,14 @@ Gzip이 아닌 Brotli를 사용한 이유는 Brotli는 Gzip에 비해 압축률�
 **Brotli로 인한 개선 사항**
 
 - 작성 페이지에서 JS 리소스 크기 107KB로 감소
-- 총 리소스 비교
-  - br 압축 전 리소스 총 합: 2.77MB
-  - br 압축 후 리소스 총 합: 1.37MB
-
-<p align="center">
-  <img src={BrImage} alt="Brotli 압축 후 빌드 파일 용량 비교" loading="lazy" />
-</p>
+- Brotli 압축 시 터미널 창
+  <p align="center">
+    <img
+      src={BrImage}
+      alt="Brotli 압축 후 빌드 파일 용량 비교"
+      loading="lazy"
+    />
+  </p>
 
 #### 작성 페이지 기준 JS 최적화 전 후 비교 (네트워크 No throttling, 캐시 사용 중지)
 
