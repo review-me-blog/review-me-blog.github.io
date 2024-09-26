@@ -74,14 +74,10 @@
 <p><strong>Brotli로 인한 개선 사항</strong></p>
 <ul>
 <li>작성 페이지에서 JS 리소스 크기 107KB로 감소</li>
-<li>총 리소스 비교<!-- -->
-<ul>
-<li>br 압축 전 리소스 총 합: 2.77MB</li>
-<li>br 압축 후 리소스 총 합: 1.37MB</li>
-</ul>
+<li>Brotli 압축 시 터미널 창<!-- -->
+<p align="center"><img src="https://your-docusaurus-site.example.com/assets/images/br-7286f96554e077092b72cbf9edac1712.jpeg" alt="Brotli 압축 후 빌드 파일 용량 비교" loading="lazy"></p>
 </li>
 </ul>
-<p align="center"><img src="https://your-docusaurus-site.example.com/assets/images/br-7286f96554e077092b72cbf9edac1712.jpeg" alt="Brotli 압축 후 빌드 파일 용량 비교" loading="lazy"></p>
 <h4 class="anchor anchorWithStickyNavbar_LWe7" id="작성-페이지-기준-js-최적화-전-후-비교-네트워크-no-throttling-캐시-사용-중지">작성 페이지 기준 JS 최적화 전 후 비교 (네트워크 No throttling, 캐시 사용 중지)<a class="hash-link" aria-label="작성 페이지 기준 JS 최적화 전 후 비교 (네트워크 No throttling, 캐시 사용 중지)에 대한 직접 링크" title="작성 페이지 기준 JS 최적화 전 후 비교 (네트워크 No throttling, 캐시 사용 중지)에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/fe-performance-optimization#%EC%9E%91%EC%84%B1-%ED%8E%98%EC%9D%B4%EC%A7%80-%EA%B8%B0%EC%A4%80-js-%EC%B5%9C%EC%A0%81%ED%99%94-%EC%A0%84-%ED%9B%84-%EB%B9%84%EA%B5%90-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-no-throttling-%EC%BA%90%EC%8B%9C-%EC%82%AC%EC%9A%A9-%EC%A4%91%EC%A7%80">​</a></h4>
 <ul>
 <li>JS 리소스 크기: 629KB -&gt;107KB</li>
@@ -125,8 +121,8 @@
 <p>리뷰미 페이지에서 다양한 굵기의 프리텐다드 폰트를 사용하고 있어서, preload를 사용할 수 있으면서도 다양한 굵기의 폰트를 더 가벼운 용량으로 부르는 가변 다이나믹 서브셋을 사용하기로 했습니다.</p>
 <p><strong>preload가 적용된 가변 다이나믹 서브셋 적용으로 인한 최적화</strong></p>
 <table><thead><tr><th>개선 항목</th><th>개선 전</th><th>개선 후</th></tr></thead><tbody><tr><td>폰트 총 리소스 용량</td><td>2.4 MB</td><td>209 KB</td></tr><tr><td>DOMContentLoaded</td><td>1.60s</td><td>216ms</td></tr><tr><td>Load</td><td>1.60s</td><td>744ms</td></tr><tr><td>Waterfall에서 로딩 속도</td><td><p align="center"><img src="https://your-docusaurus-site.example.com/assets/images/pretendard_before-834437e0e2c24ad728cdb12de1b8c57d.png" alt="프리덴다드 가변 다이나믹 서브셋 적용 전" loading="lazy"></p></td><td><p align="center"><img src="https://your-docusaurus-site.example.com/assets/images/pretendard_after-7c9e67fe9858cde08ec862a79a052cb5.png" alt="프리덴다드 가변 다이나믹 서브셋 적용 후" loading="lazy"></p></td></tr></tbody></table>
-<h3 class="anchor anchorWithStickyNavbar_LWe7" id="캐러셀-애니메이션-최적화-및-불필요한-렌더링-개선">캐러셀 애니메이션 최적화 및 불필요한 렌더링 개선<a class="hash-link" aria-label="캐러셀 애니메이션 최적화 및 불필요한 렌더링 개선에 대한 직접 링크" title="캐러셀 애니메이션 최적화 및 불필요한 렌더링 개선에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/fe-performance-optimization#%EC%BA%90%EB%9F%AC%EC%85%80-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-%EC%B5%9C%EC%A0%81%ED%99%94-%EB%B0%8F-%EF%BF%BD%EF%BF%BD%EB%B6%88%ED%95%84%EC%9A%94%ED%95%9C-%EB%A0%8C%EB%8D%94%EB%A7%81-%EA%B0%9C%EC%84%A0">​</a></h3>
-<h4 class="anchor anchorWithStickyNavbar_LWe7" id="개선-전-네트워크-cpu에-따른-frame-drop-layout-shift">개선 전 네트워크, CPU에 따른 Frame drop, Layout shift<a class="hash-link" aria-label="개선 전 네트워크, CPU에 따른 Frame drop, Layout shift에 대한 직접 링크" title="개선 전 네트워크, CPU에 따른 Frame drop, Layout shift에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/fe-performance-optimization#%EA%B0%9C%EC%84%A0-%EC%A0%84-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-cpu%EC%97%90-%EB%94%B0%EB%A5%B8-frame-drop-layout-shift">​</a></h4>
+<h3 class="anchor anchorWithStickyNavbar_LWe7" id="캐러셀-애니메이션-최적화-및-불필요한-렌더링-개선">캐러셀 애니메이션 최적화 및 불필요한 렌더링 개선<a class="hash-link" aria-label="캐러셀 애니메이션 최적화 및 불필요한 렌더링 개선에 대한 직접 링크" title="캐러셀 애니메이션 최적화 및 불필요한 렌더링 개선에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/fe-performance-optimization#%EC%BA%90%EB%9F%AC%EC%85%80-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-%EC%B5%9C%EC%A0%81%ED%99%94-%EB%B0%8F-%EB%B6%88%ED%95%84%EC%9A%94%ED%95%9C-%EB%A0%8C%EB%8D%94%EB%A7%81-%EA%B0%9C%EC%84%A0">​</a></h3>
+<h4 class="anchor anchorWithStickyNavbar_LWe7" id="개��선-전-네트워크-cpu에-따른-frame-drop-layout-shift">개선 전 네트워크, CPU에 따른 Frame drop, Layout shift<a class="hash-link" aria-label="개선 전 네트워크, CPU에 따른 Frame drop, Layout shift에 대한 직접 링크" title="개선 전 네트워크, CPU에 따른 Frame drop, Layout shift에 대한 직접 링크" href="https://your-docusaurus-site.example.com/blog/fe-performance-optimization#%EA%B0%9C%EC%84%A0-%EC%A0%84-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-cpu%EC%97%90-%EB%94%B0%EB%A5%B8-frame-drop-layout-shift">​</a></h4>
 <table><thead><tr><th>캐러셀</th><th>네트워크:제한 없음 , CPU: 제한 없음</th><th>네트워크: 3G ,CPU : X 6(감속)</th></tr></thead><tbody><tr><td>작성 페이지 캐러셀 Frame drop</td><td>있음</td><td>있음 (체감상으로도 버벅임이 느껴짐)</td></tr><tr><td>작성 페이지 캐러셀 Layout shift</td><td>없음</td><td>없음</td></tr><tr><td>홈 페이지 캐러셀 Frame drop</td><td>캐러셀의 카드가 이동할때 마다 Frame drop 일어남</td><td>캐러셀의 카드가 이동할때 마다 Frame drop 일어남</td></tr><tr><td>홈 페이지 캐러셀 Layout shift</td><td>없음</td><td>없음</td></tr></tbody></table>
 <p><strong>애니메이션 최적화 속성 사용</strong></p>
 <p><code>window.requestAnimationFrame</code>, <code>will-change</code>, <code>translate3d</code>를 사용해 홈 페이지와 리뷰 작성 페이지에서 사용하는 캐러셀에 대한 애니메이션 최적화를 진행했습니다.</p>
